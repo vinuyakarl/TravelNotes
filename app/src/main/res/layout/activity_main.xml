@@ -83,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:padding="16dp">
+        android:paddingHorizontal="16dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/profileIcon"
