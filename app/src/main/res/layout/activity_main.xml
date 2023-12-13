@@ -46,81 +46,93 @@
         android:text="Logout"
         android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/titlePageText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginTop="40dp"
         android:text="Travel Notes"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/gridView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <GridView
         android:id="@+id/gridView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="115dp"
+        android:layout_marginTop="200dp"
         android:layout_marginBottom="90dp"
         android:horizontalSpacing="15dp"
-        android:numColumns="2"
+        android:numColumns="1"
         android:paddingHorizontal="15dp"
         android:verticalSpacing="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/primary"
+        android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingHorizontal="16dp">
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/profileIcon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/profile_icon"
             android:layout_gravity="center"
+            android:layout_margin="20dp"
             android:layout_weight="1"
-            android:layout_margin="20dp"/>
+            android:background="@drawable/profile_icon" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/addIcon"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:background="@drawable/add_icon"
+            android:layout_margin="20dp"
             android:layout_weight="1"
-            android:layout_margin="20dp"/>
+            android:background="@drawable/add_icon" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appCompatButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/delete_icon"
             android:layout_gravity="center"
+            android:layout_margin="20dp"
             android:layout_weight="1"
-            android:layout_margin="20dp"/>
+            android:background="@drawable/delete_icon" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/appCompatButton2"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/filter_icon"
             android:layout_gravity="center"
+            android:layout_margin="20dp"
             android:layout_weight="1"
-            android:layout_margin="20dp"/>
+            android:background="@drawable/filter_icon" />
 
     </LinearLayout>
+
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/home_page_search"
+        app:layout_constraintBottom_toTopOf="@+id/gridView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
