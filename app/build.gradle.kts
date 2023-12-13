@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.example.travelnotes"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.travelnotes"
