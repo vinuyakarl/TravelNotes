@@ -22,8 +22,8 @@
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:src="@drawable/travel_notes_logo"
         app:layout_constraintBottom_toTopOf="@+id/userLoginText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +34,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:fontFamily="@font/aldrich"
+        android:text="TravelNotes"
+        android:textColor="@color/black"
+        android:textSize="50sp"
         app:layout_constraintBottom_toTopOf="@+id/userLoginText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
