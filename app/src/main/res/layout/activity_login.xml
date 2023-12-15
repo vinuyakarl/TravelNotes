@@ -8,30 +8,57 @@
     android:background="@color/primary">
 
     <EditText
+        android:id="@+id/userPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/login_input"
+        android:ems="15"
+        android:hint="Password"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userLoginText" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gray_border_button"
+        android:text="LOGIN"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="@+id/userLoginText"
+        app:layout_constraintTop_toBottomOf="@+id/userPasswordText" />
+
+    <EditText
         android:id="@+id/userLoginText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/login_input"
         android:ems="15"
-        android:inputType="text"
         android:hint="Username"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/appNameTextView"
+        app:layout_constraintVertical_bias="0.10" />
 
     <ImageView
         android:id="@+id/appLogo"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:src="@drawable/travel_notes_logo"
-        app:layout_constraintBottom_toTopOf="@+id/userLoginText"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.098" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/appNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
@@ -40,5 +67,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appLogo" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signupButton"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/gray_border_button"
+        android:text="SIGN UP"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="@+id/userLoginText"
+        app:layout_constraintTop_toBottomOf="@+id/userPasswordText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
