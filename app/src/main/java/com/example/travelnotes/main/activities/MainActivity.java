@@ -1,4 +1,4 @@
-package com.example.travelnotes.activities;
+package com.example.travelnotes.main.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
