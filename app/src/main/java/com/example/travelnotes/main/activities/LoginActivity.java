@@ -1,11 +1,9 @@
 package com.example.travelnotes.main.activities;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -15,14 +13,6 @@ import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 import com.example.travelnotes.main.fragments.SignUpFragment;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-
 
 public class LoginActivity extends AppCompatActivity {
     private Button loginButton;
@@ -57,8 +47,18 @@ public class LoginActivity extends AppCompatActivity {
     private void loginButtonPressed() {
         String username = usernameField.getText().toString();
         String password = passwordField.getText().toString();
-        if(userManager.containsUser(username) && password.equals(userManager.))
-        goToHomePage();
+        User user = userManager.getUserByUsername(username);
+        if(userManager.containsUser(username) && password.equals(user.getPassword())) {
+            Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
+            userManager.setCurrentUser(user);
+            goToHomePage();
+        }
+        else if (userManager.containsUser(username) && !password.equals(user.getPassword())) {
+            Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show();
+        }
+        else if (!userManager.containsUser(username)) {
+            Toast.makeText(this, "User Does Not Exist", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void signupButtonPressed() {

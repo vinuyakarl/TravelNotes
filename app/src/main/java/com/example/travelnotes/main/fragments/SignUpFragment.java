@@ -23,7 +23,7 @@ public class SignUpFragment extends DialogFragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
-    private UserManager userManager = UserManager.getInstance();
+    private final UserManager userManager = UserManager.getInstance();
 
 
     @NonNull

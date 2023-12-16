@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 public class UserManager {
     private ArrayList<User> users = new ArrayList<>();
-    private static UserManager instance = new UserManager();
-    private UserDB userDB = new UserDB();
+    private static final UserManager instance = new UserManager();
+    private final UserDB userDB = new UserDB();
+    private User currentUser;
 
 
     private UserManager() {}
@@ -33,6 +34,14 @@ public class UserManager {
             userDB.addUserDB(user);
         }
     }
+    public User getUserByUsername(String username) {
+        for (User user: users) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return new User("egokogek", "giejgoej");
+    }
 
     public ArrayList<User> getUsers() {
         return users;
@@ -43,9 +52,19 @@ public class UserManager {
         this.users = users;
     }
 
+
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
+    /**
+     * Gets all users from DB and populate local userArrayList from DB
+     */
     public void fetchUsers() {
         userDB.fetchUsersDB();
-        ArrayList<User> usersInDB = userDB.getUsersDB();
-        setUsers(usersInDB);
     }
 }
