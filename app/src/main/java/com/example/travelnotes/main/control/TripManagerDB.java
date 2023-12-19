@@ -2,6 +2,7 @@ package com.example.travelnotes.main.control;
 
 import android.util.Log;
 
+import com.example.travelnotes.main.adapters.TripAdapter;
 import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
@@ -38,21 +39,6 @@ public class TripManagerDB {
                 .addOnFailureListener(e -> {
                     Log.e("Firestore", "Error adding trip", e);
                 });
-    }
-
-    public void fetchTripsDB() {
-        TripManager currentTripManager = currentUser.getTripManager();
-        ArrayList<Trip> tripsDB = new ArrayList<>();
-        CollectionReference tripCollection = userCollection.document(currentUser.getUsername()).collection("trips");
-        tripCollection.get()
-                .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-                        Trip trip = doc.toObject(Trip.class);
-                        tripsDB.add(trip);
-                        Log.d("Firestore", trip.getDestination());
-                    }
-                });
-        currentTripManager.setTrips(tripsDB);
     }
 
 }

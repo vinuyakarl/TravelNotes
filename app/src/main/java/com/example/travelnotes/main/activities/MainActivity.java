@@ -3,7 +3,9 @@ package com.example.travelnotes.main.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.adapters.TripAdapter;
@@ -24,12 +26,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String username = currentUser.getUsername();
+
         tripManager = currentUser.getTripManager();
 
+        TextView nameTextView = findViewById(R.id.nameText);
+        nameTextView.setText(username);
 
         tripAdapter = new TripAdapter(this, tripManager.getTrips());
-
         tripListView = findViewById(R.id.tripListView);
         tripListView.setAdapter(tripAdapter);
     }
+
 }

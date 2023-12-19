@@ -1,5 +1,8 @@
 package com.example.travelnotes.main.entity;
 
+import android.widget.ArrayAdapter;
+
+import com.example.travelnotes.main.adapters.TripAdapter;
 import com.example.travelnotes.main.control.TripManagerDB;
 
 import java.util.ArrayList;
@@ -29,7 +32,4 @@ public class TripManager {
         this.trips = trips;
     }
 
-    public void fetchTrips() {
-        tripManagerDB.fetchTripsDB();
-    }
 }
