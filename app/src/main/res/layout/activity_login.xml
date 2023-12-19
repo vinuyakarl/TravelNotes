@@ -8,17 +8,17 @@
     android:background="@color/primary">
 
     <EditText
-        android:id="@+id/userPasswordText"
+        android:id="@+id/editTextLoginPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@drawable/login_input"
+        android:background="@drawable/black_border"
         android:ems="15"
         android:hint="Password"
-        android:inputType="text"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userLoginText" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginUser" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/loginButton"
@@ -28,14 +28,14 @@
         android:background="@drawable/gray_border_button"
         android:text="LOGIN"
         android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="@+id/userLoginText"
-        app:layout_constraintTop_toBottomOf="@+id/userPasswordText" />
+        app:layout_constraintEnd_toEndOf="@+id/editTextLoginUser"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginPassword" />
 
     <EditText
-        android:id="@+id/userLoginText"
+        android:id="@+id/editTextLoginUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/login_input"
+        android:background="@drawable/black_border"
         android:ems="15"
         android:hint="Username"
         android:inputType="text"
@@ -76,7 +76,7 @@
         android:background="@drawable/gray_border_button"
         android:text="SIGN UP"
         android:textSize="10sp"
-        app:layout_constraintStart_toStartOf="@+id/userLoginText"
-        app:layout_constraintTop_toBottomOf="@+id/userPasswordText" />
+        app:layout_constraintStart_toStartOf="@+id/editTextLoginUser"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLoginPassword" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
