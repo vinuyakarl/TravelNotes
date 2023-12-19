@@ -1,16 +1,35 @@
 package com.example.travelnotes.main.entity;
 
+import com.example.travelnotes.main.control.TripManagerDB;
+
 import java.util.ArrayList;
 
 public class TripManager {
-    private static final TripManager instance = new TripManager();
-    private ArrayList<Trip> trips = new ArrayList<>();
-
-    private TripManager() {
-        super();
+    private ArrayList<Trip> trips;
+    private final TripManagerDB tripManagerDB = new TripManagerDB();
+    public TripManager() {
+        trips = new ArrayList<>();
     }
 
-    private static TripManager getInstance() {
-        return instance;
+
+    public Trip getTrip(int position) {
+        return trips.get(position);
+    }
+
+    public void addTrip(Trip newTrip) {
+        trips.add(newTrip);
+        tripManagerDB.addTripToDB(newTrip);
+    }
+
+    public ArrayList<Trip> getTrips() {
+        return trips;
+    }
+
+    public void setTrips(ArrayList<Trip> trips) {
+        this.trips = trips;
+    }
+
+    public void fetchTrips() {
+        tripManagerDB.fetchTripsDB();
     }
 }
