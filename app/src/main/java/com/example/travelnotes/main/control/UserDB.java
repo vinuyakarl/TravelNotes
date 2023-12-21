@@ -44,7 +44,7 @@ public class UserDB {
                                     for (QueryDocumentSnapshot tripDoc: tripsDocumentSnapshots) {
                                         Trip trip = tripDoc.toObject(Trip.class);
                                         tripsDB.add(trip);
-                                        Log.d("Firebase", trip.getOrigin());
+                                        Log.d("Firebase", trip.getOrigin() + " successfully fetched");
                                     }
                                     user.getTripManager().setTrips(tripsDB);
                                 });
