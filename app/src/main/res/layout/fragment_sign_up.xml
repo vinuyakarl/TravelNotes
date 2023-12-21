@@ -14,7 +14,7 @@
         android:layout_margin="8dp"
         android:background="@drawable/black_border"
         android:ems="15"
-        android:hint="Enter username:"
+        android:hint="Enter Username:"
         app:layout_constraintBottom_toTopOf="@+id/editTextEnterPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
