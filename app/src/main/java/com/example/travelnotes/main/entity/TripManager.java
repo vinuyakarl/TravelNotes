@@ -1,5 +1,6 @@
 package com.example.travelnotes.main.entity;
 
+import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.example.travelnotes.main.adapters.TripAdapter;

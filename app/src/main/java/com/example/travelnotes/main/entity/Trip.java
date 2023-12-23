@@ -70,4 +70,5 @@ public class Trip {
     public void setCost(Float cost) {
         this.cost = cost;
     }
+
 }
