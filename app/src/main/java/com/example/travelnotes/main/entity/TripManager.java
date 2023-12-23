@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class TripManager {
     private ArrayList<Trip> trips;
-    private final TripManagerDB tripManagerDB = new TripManagerDB();
+    private TripManagerDB tripManagerDB = new TripManagerDB();
     public TripManager() {
         trips = new ArrayList<>();
     }

@@ -19,15 +19,15 @@ import java.util.ArrayList;
 public class TripManagerDB {
     private FirebaseFirestore db;
     private CollectionReference userCollection;
-    private UserManager userManager = UserManager.getInstance();
-    private User currentUser;
+    private UserManager userManager;
 
     public TripManagerDB() {
         this.db = FirebaseFirestore.getInstance();
         this.userCollection = db.collection("users");
-        this.currentUser = userManager.getCurrentUser();
+        this.userManager = UserManager.getInstance();
     }
     public void addTripToDB(Trip trip) {
+        User currentUser = userManager.getCurrentUser();
         CollectionReference tripCollection = userCollection.document(currentUser.getUsername()).collection("trips");
         tripCollection.document(trip.getUniqueId().toString())
                 .set(trip)
