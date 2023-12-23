@@ -2,6 +2,7 @@ package com.example.travelnotes.main.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
@@ -25,7 +26,7 @@ public class MainActivity extends AppCompatActivity{
     private User currentUser = userManager.getCurrentUser();
     private AddTripFragment addTripFragment = new AddTripFragment();
     private Button addButton;
-    private TripManagerDB tripManagerDB = new TripManagerDB();
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +45,22 @@ public class MainActivity extends AppCompatActivity{
 
         getUIElements();
         addButton.setOnClickListener(v -> addButtonPressed());
+        logoutButton.setOnClickListener(v -> logoutButtonPressed());
     }
 
 
     private void getUIElements() {
         addButton = findViewById(R.id.addIcon);
+        logoutButton = findViewById(R.id.logoutButton);
     }
 
     private void addButtonPressed() {
         addTripFragment.show(getSupportFragmentManager(), "add trip");
+    }
+
+    private void logoutButtonPressed() {
+        userManager.setCurrentUser(null);
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
     }
 }
