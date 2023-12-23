@@ -3,8 +3,6 @@ package com.example.travelnotes.main.activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.adapters.TripAdapter;
 import com.example.travelnotes.main.control.TripManagerDB;
-import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
@@ -37,10 +34,6 @@ public class MainActivity extends AppCompatActivity{
         String username = currentUser.getUsername();
 
         tripManager = currentUser.getTripManager();
-        Trip trip = new Trip("Calgary", "Edmonton", new Date(), new Date(), 600.0F);
-        tripManager.addTrip(trip);
-
-        Log.d("Firestore", String.valueOf(tripManager.getTrips().size()));
 
         TextView nameTextView = findViewById(R.id.nameText);
         nameTextView.setText(username);

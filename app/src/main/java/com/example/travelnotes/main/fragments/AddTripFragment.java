@@ -18,7 +18,6 @@ import androidx.fragment.app.DialogFragment;
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.TripManager;
-import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 
 import java.text.SimpleDateFormat;
@@ -111,6 +110,8 @@ public class AddTripFragment extends DialogFragment {
         boolean isValid = isInputValid(origin, destination, cost);
         if (isValid) {
             Toast.makeText(getContext(), "Trip Added", Toast.LENGTH_SHORT).show();
+            Trip newTrip = new Trip(destination, origin, tripStarted, tripEnded, addCost.getAlpha());
+            currentTripManager.addTrip(newTrip);
             dismiss();
 
         }
