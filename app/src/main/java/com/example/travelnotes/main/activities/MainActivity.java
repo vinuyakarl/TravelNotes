@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.adapters.TripAdapter;
-import com.example.travelnotes.main.control.TripManagerDB;
 import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity{
     }
 
     private void logoutButtonPressed() {
-        userManager.setCurrentUser(null);
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
+        Toast.makeText(this, currentUser.getUsername() + " Logged Out", Toast.LENGTH_SHORT).show();
     }
 }

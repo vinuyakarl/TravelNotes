@@ -13,7 +13,9 @@ import androidx.annotation.Nullable;
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.Trip;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class TripAdapter extends ArrayAdapter<Trip> {
     private  ArrayList<Trip> trips;
@@ -36,7 +38,13 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         Trip trip = trips.get(position);
 
         TextView tripDestination = view.findViewById(R.id.destinationTextView);
+        TextView tripDate = view.findViewById(R.id.dateTextView);
         tripDestination.setText(trip.getDestination());
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault());
+        String stringStartDate = dateFormat.format(trip.getTripStarted());
+        String stringEndDate = dateFormat.format(trip.getTripEnded());
+        tripDate.setText(stringStartDate + " - "  + stringEndDate);
 
         return view;
     }
