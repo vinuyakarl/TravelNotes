@@ -1,6 +1,5 @@
 package com.example.travelnotes.main.fragments;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -133,7 +132,7 @@ public class AddTripFragment extends DialogFragment {
             Toast.makeText(getContext(), "Invalid Trip Date", Toast.LENGTH_SHORT).show();
             isValid = false;
         }
-        
+
         return isValid;
     }
 }
