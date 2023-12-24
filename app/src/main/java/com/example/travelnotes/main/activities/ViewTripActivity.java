@@ -39,7 +39,6 @@ public class ViewTripActivity extends AppCompatActivity {
         getUIElements();
         setTexts();
         addItineraryButton.setOnClickListener(v -> addItineraryButtonClicked());
-        logoutButton.setOnClickListener(v -> logoutButtonPressed());
     }
 
     public void getUIElements() {
@@ -49,8 +48,6 @@ public class ViewTripActivity extends AppCompatActivity {
         costViewText = findViewById(R.id.costViewText);
         doneButton = findViewById(R.id.doneButton);
         addItineraryButton = findViewById(R.id.addItineraryButton);
-        logoutButton = findViewById(R.id.logoutButton);
-
     }
 
     public void setTexts() {
@@ -64,11 +61,5 @@ public class ViewTripActivity extends AppCompatActivity {
 
     private void addItineraryButtonClicked() {
         addItineraryFragment.show(getSupportFragmentManager(), "ADD_ITINERARY");
-    }
-
-    private void logoutButtonPressed() {
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
-        Toast.makeText(this, currentUser.getUsername() + " Logged Out", Toast.LENGTH_SHORT).show();
     }
 }
