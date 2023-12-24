@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,9 +19,6 @@ import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 import com.example.travelnotes.main.fragments.AddTripFragment;
-import com.example.travelnotes.main.fragments.ViewTripFragment;
-
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity{
     private TripAdapter tripAdapter;
@@ -29,7 +27,7 @@ public class MainActivity extends AppCompatActivity{
     private UserManager userManager = UserManager.getInstance();
     private User currentUser = userManager.getCurrentUser();
     private AddTripFragment addTripFragment = new AddTripFragment();
-    private ViewTripFragment viewTripFragment;
+    private ViewTripActivity viewTripActivity;
     private Button addButton;
     private Button logoutButton;
 
@@ -47,7 +45,7 @@ public class MainActivity extends AppCompatActivity{
         tripAdapter = new TripAdapter(this, tripManager.getTrips());
         tripListView = findViewById(R.id.tripListView);
         tripListView.setAdapter(tripAdapter);
-        tripListView.setOnItemClickListener((parent, view, position, id) -> tripListPressed(parent, position));
+        tripListView.setOnItemClickListener((parent, view, position, id) -> tripListPressed(position));
 
         getUIElements();
         addButton.setOnClickListener(v -> addButtonPressed());
@@ -60,10 +58,11 @@ public class MainActivity extends AppCompatActivity{
         logoutButton = findViewById(R.id.logoutButton);
     }
 
-    private void tripListPressed(AdapterView<?> parent,  int position) {
-        Trip selectedTrip = (Trip) parent.getItemAtPosition(position);
-        viewTripFragment = new ViewTripFragment(selectedTrip);
-        viewTripFragment.show(getSupportFragmentManager(), "VIEW_TRIP");
+    private void tripListPressed(int position) {
+        Trip selectedTrip = tripManager.getTrip(position);
+        Intent intent = new Intent(getApplicationContext(), ViewTripActivity.class);
+        intent.putExtra("selectedTrip", selectedTrip);
+        startActivity(intent);
     }
 
     private void addButtonPressed() {

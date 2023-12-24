@@ -1,5 +1,6 @@
 package com.example.travelnotes.main.entity;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -7,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
-public class Trip {
+public class Trip implements Serializable {
     private String destination;
     private String origin;
     private UniqueID uniqueId;

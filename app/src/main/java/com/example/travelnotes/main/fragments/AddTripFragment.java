@@ -59,10 +59,10 @@ public class AddTripFragment extends DialogFragment {
         cancelButton = view.findViewById(R.id.cancelButton);
         confirmButton = view.findViewById(R.id.confirmButton);
         addOrigin = view.findViewById(R.id.editTextOrigin);
-        addDestination = view.findViewById(R.id.editTextDestination);
+        addDestination = view.findViewById(R.id.editTextLocation);
         addCost = view.findViewById(R.id.editTextCost);
-        startDateButton = view.findViewById(R.id.dateStartedButton);
-        endDateButton = view.findViewById(R.id.dateEndedButton);
+        startDateButton = view.findViewById(R.id.timeStartedButton);
+        endDateButton = view.findViewById(R.id.dateButton);
     }
 
     private void dateButtonClicked(Button dateButton) {
