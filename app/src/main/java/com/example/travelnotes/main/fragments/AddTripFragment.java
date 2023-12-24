@@ -20,6 +20,7 @@ import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.UserManager;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -81,8 +82,8 @@ public class AddTripFragment extends DialogFragment {
                     }
                     else {
                         tripEnded = newDate.getTime();
-                        String formattedTripStart = dateFormat.format(tripEnded);
-                        dateButton.setText(formattedTripStart);
+                        String formattedTripEnd = dateFormat.format(tripEnded);
+                        dateButton.setText(formattedTripEnd);
                     }
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)

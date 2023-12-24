@@ -1,5 +1,9 @@
 package com.example.travelnotes.main.entity;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,6 +14,7 @@ public class Trip {
     private Date tripStarted;
     private Date tripEnded;
     private Float cost;
+    private ArrayList<Itinerary> itineraries;
 
     public Trip(String destination, String origin, Date tripStarted, Date tripEnded, Float cost) {
         this.destination = destination;
@@ -18,6 +23,8 @@ public class Trip {
         this.tripStarted = tripStarted;
         this.tripEnded = tripEnded;
         this.cost = cost;
+
+        this.itineraries = new ArrayList();
     }
 
     public Trip() {
@@ -71,4 +78,11 @@ public class Trip {
         this.cost = cost;
     }
 
+    public ArrayList<Itinerary> getItineraries() {
+        return itineraries;
+    }
+
+    public void setItineraries(ArrayList<Itinerary> itineraries) {
+        this.itineraries = itineraries;
+    }
 }
