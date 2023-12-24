@@ -8,17 +8,6 @@
     android:padding="30dp">
 
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/timeEndedButton"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/blue_border_button"
-        android:text="Time End"
-        android:textColor="@color/primary"
-        app:layout_constraintEnd_toEndOf="@+id/editTextLocation"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -59,28 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextActivity" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/timeStartedButton"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/blue_border_button"
-        android:text="Time Start"
-        android:textColor="@color/primary"
-        app:layout_constraintStart_toStartOf="@+id/editTextLocation"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLocation" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/dateButton"
-        android:layout_width="75dp"
-        android:layout_height="50dp"
-        android:background="@drawable/blue_border_button"
-        android:text="Date"
-        android:textColor="@color/primary"
-        app:layout_constraintEnd_toStartOf="@+id/timeEndedButton"
-        app:layout_constraintStart_toEndOf="@+id/timeStartedButton"
-        app:layout_constraintTop_toTopOf="@+id/timeEndedButton" />
-
     <EditText
         android:id="@+id/editTextCost"
         android:layout_width="wrap_content"
@@ -92,7 +59,7 @@
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateButton" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
@@ -115,5 +82,48 @@
         android:textColor="@color/primary"
         app:layout_constraintEnd_toStartOf="@+id/confirmButton"
         app:layout_constraintTop_toTopOf="@+id/confirmButton" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLocation">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/timeStartedButton"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Start Time"
+            android:textColor="@color/primary"
+            android:background="@drawable/gray_border_button"
+            android:textSize="8sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dateButton"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Date"
+            android:textColor="@color/primary"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/gray_border_button"
+            android:textSize="8sp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/timeEndedButton"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="End Time"
+            android:textColor="@color/primary"
+            android:background="@drawable/gray_border_button"
+            android:textSize="8sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
