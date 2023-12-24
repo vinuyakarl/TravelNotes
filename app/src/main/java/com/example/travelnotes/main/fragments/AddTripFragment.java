@@ -20,7 +20,6 @@ import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.UserManager;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
