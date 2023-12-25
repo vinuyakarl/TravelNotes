@@ -43,6 +43,7 @@ public class UserDB {
                                 .addOnSuccessListener(tripsDocumentSnapshots -> {
                                     for (QueryDocumentSnapshot tripDoc: tripsDocumentSnapshots) {
                                         Trip trip = tripDoc.toObject(Trip.class);
+                                        Log.d("Unique_Id", tripDoc.get("uniqueId").toString());
                                         tripsDB.add(trip);
                                         Log.d("Firebase", trip.getOrigin() + " successfully fetched");
                                     }

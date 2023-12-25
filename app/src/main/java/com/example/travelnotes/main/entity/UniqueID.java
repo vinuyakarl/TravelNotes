@@ -12,8 +12,8 @@ public class UniqueID implements Serializable {
         lsb = ID.getLeastSignificantBits();
     }
 
-    public UUID getID() {
-        return ID;
+    public String getID() {
+        return ID.toString();
     }
 
     public void setID(UUID ID) {

@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Trip implements Serializable {
     private String destination;
     private String origin;
-    private UniqueID uniqueId;
+    private String uniqueId;
     private Date tripStarted;
     private Date tripEnded;
     private Float cost;
@@ -24,7 +24,7 @@ public class Trip implements Serializable {
     public Trip(String destination, String origin, Date tripStarted, Date tripEnded, Float cost) {
         this.destination = destination;
         this.origin = origin;
-        this.uniqueId = new UniqueID();
+        this.uniqueId = new UniqueID().getID();
         this.tripStarted = tripStarted;
         this.tripEnded = tripEnded;
         this.cost = cost;
@@ -49,11 +49,11 @@ public class Trip implements Serializable {
         this.origin = origin;
     }
 
-    public UUID getUniqueId() {
-        return uniqueId.getID();
+    public String getUniqueId() {
+        return uniqueId;
     }
 
-    public void setUniqueId(UniqueID uniqueId) {
+    public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
 
@@ -93,5 +93,10 @@ public class Trip implements Serializable {
         itineraries.add(itinerary);
         ItineraryDB itineraryDB = new ItineraryDB();
         itineraryDB.addItineraryToTripDB(this, itinerary);
+    }
+
+    public void fetchItineraries() {
+        ItineraryDB itineraryDB = new ItineraryDB();
+        itineraryDB.fetchItinerariesDB();
     }
 }

@@ -86,7 +86,7 @@ public class AddItineraryFragment extends DialogFragment {
 
         boolean isValid = isInputValid(activity, location, cost);
         if (isValid) {
-            Itinerary newItinerary = new Itinerary(activityDate, timeStarted, timeEnded, location, activity, addCost.getAlpha());
+            Itinerary newItinerary = new Itinerary(activityDate, timeStarted.toString(), timeEnded.toString(), location, activity, addCost.getAlpha());
             selectedTrip.addItinerary(newItinerary);
             Toast.makeText(getContext(), "Itinerary Added", Toast.LENGTH_SHORT).show();
             dismiss();

@@ -5,22 +5,22 @@ import java.util.Date;
 import java.util.UUID;
 
 public class Itinerary {
-    private LocalTime timeStart;
-    private LocalTime timeEnd;
+    private String timeStart;
+    private String timeEnd;
     private String activity;
     private String location;
     private Float cost;
     private Date date;
-    private UniqueID uniqueID;
+    private String uniqueID;
 
-    public Itinerary(Date date, LocalTime timeStart, LocalTime timeEnd, String location, String activity, Float cost) {
+    public Itinerary(Date date, String timeStart, String timeEnd, String location, String activity, Float cost) {
         this.date = date;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.location = location;
         this.activity = activity;
         this.cost = cost;
-        this.uniqueID = new UniqueID();
+        this.uniqueID = new UniqueID().getID();
     }
 
     public Itinerary() {
@@ -42,19 +42,19 @@ public class Itinerary {
         this.date = date;
     }
 
-    public LocalTime getTimeStart() {
+    public String getTimeStart() {
         return timeStart;
     }
 
-    public void setTimeStart(LocalTime timeStart) {
+    public void setTimeStart(String timeStart) {
         this.timeStart = timeStart;
     }
 
-    public LocalTime getTimeEnd() {
+    public String getTimeEnd() {
         return timeEnd;
     }
 
-    public void setTimeEnd(LocalTime timeEnd) {
+    public void setTimeEnd(String timeEnd) {
         this.timeEnd = timeEnd;
     }
 
@@ -74,11 +74,11 @@ public class Itinerary {
         this.activity = activity;
     }
 
-    public UUID getUniqueID() {
-        return uniqueID.getID();
+    public String getUniqueID() {
+        return uniqueID;
     }
 
-    public void setUniqueID(UniqueID uniqueID) {
+    public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
     }
 }
