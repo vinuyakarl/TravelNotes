@@ -84,9 +84,13 @@ public class AddItineraryFragment extends DialogFragment {
         String location = addLocation.getText().toString();
         String cost = String.valueOf(addCost.getAlpha());
 
-        Itinerary newItinerary = new Itinerary(activityDate, timeStarted, timeEnded, location, activity, addCost.getAlpha());
-        Log.d("testing", "we got to here");
-        selectedTrip.addItinerary(newItinerary);
+        boolean isValid = isInputValid(activity, location, cost);
+        if (isValid) {
+            Itinerary newItinerary = new Itinerary(activityDate, timeStarted, timeEnded, location, activity, addCost.getAlpha());
+            selectedTrip.addItinerary(newItinerary);
+            Toast.makeText(getContext(), "Itinerary Added", Toast.LENGTH_SHORT).show();
+            dismiss();
+        }
     }
 
 
@@ -105,13 +109,40 @@ public class AddItineraryFragment extends DialogFragment {
                         dateButtonClicked();
                     }
 
-                    String formattedDate = dateFormat.format(activityDate);
-                    dateButton.setText(formattedDate);
+                    else {
+                        String formattedDate = dateFormat.format(activityDate);
+                        dateButton.setText(formattedDate);
+                    }
 
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                 calendar.get(Calendar.DAY_OF_MONTH)
         );
         datePickerDialog.show();
+    }
+
+    private boolean isInputValid(String activity, String location, String cost) {
+        boolean anyFieldsEmpty = activity.isEmpty() || location.isEmpty() || cost.isEmpty();
+        boolean anyTimeEmpty = timeStarted == null || timeEnded == null || activityDate == null;
+        boolean isValid = true;
+
+        // Check if any fields is empty
+        if (anyFieldsEmpty || anyTimeEmpty) {
+            Toast.makeText(getContext(), "Please Fill Out All Fields", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        // Check if trip date is valid
+        if (timeStarted.isAfter(timeEnded)) {
+            Toast.makeText(getContext(), "Invalid Time", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        if (activityDate.before(selectedTrip.getTripStarted()) || activityDate.after(selectedTrip.getTripEnded())) {
+            Toast.makeText(getContext(), "Invalid Date", Toast.LENGTH_SHORT).show();
+            isValid = false;
+        }
+
+        return isValid;
     }
 
     private void timeButtonClicked(Button timeButton) {

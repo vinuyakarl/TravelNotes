@@ -91,7 +91,6 @@ public class Trip implements Serializable {
 
     public void addItinerary(Itinerary itinerary) {
         itineraries.add(itinerary);
-        Log.d("testing", "why can't we get here");
         ItineraryDB itineraryDB = new ItineraryDB();
         itineraryDB.addItineraryToTripDB(this, itinerary);
     }
