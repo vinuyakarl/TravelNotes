@@ -98,10 +98,10 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Start Time"
+            android:background="@drawable/blue_border_button"
+            android:text="Start"
             android:textColor="@color/primary"
-            android:background="@drawable/gray_border_button"
-            android:textSize="8sp" />
+            android:textSize="10sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/dateButton"
@@ -112,18 +112,18 @@
             android:textColor="@color/primary"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:background="@drawable/gray_border_button"
-            android:textSize="8sp" />
+            android:background="@drawable/blue_border_button"
+            android:textSize="10sp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/timeEndedButton"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="End Time"
+            android:background="@drawable/blue_border_button"
+            android:text="End"
             android:textColor="@color/primary"
-            android:background="@drawable/gray_border_button"
-            android:textSize="8sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

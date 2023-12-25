@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class ViewTripActivity extends AppCompatActivity {
-    private AddItineraryFragment addItineraryFragment = new AddItineraryFragment();
+    private AddItineraryFragment addItineraryFragment;
     private Trip selectedTrip;
     private TextView destinationViewText;
     private TextView originViewText;
@@ -60,6 +61,7 @@ public class ViewTripActivity extends AppCompatActivity {
     }
 
     private void addItineraryButtonClicked() {
+        addItineraryFragment = new AddItineraryFragment(selectedTrip);
         addItineraryFragment.show(getSupportFragmentManager(), "ADD_ITINERARY");
     }
 }
