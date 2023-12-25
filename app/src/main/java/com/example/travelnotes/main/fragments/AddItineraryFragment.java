@@ -19,6 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.travelnotes.R;
+import com.example.travelnotes.main.entity.Itinerary;
 import com.example.travelnotes.main.entity.Trip;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +53,8 @@ public class AddItineraryFragment extends DialogFragment {
         cancelButton.setOnClickListener(v -> cancelButtonClicked());
         dateButton.setOnClickListener(v -> dateButtonClicked());
         startTimeButton.setOnClickListener(v -> timeButtonClicked(startTimeButton));
+        endTimeButton.setOnClickListener(v -> timeButtonClicked(endTimeButton));
+        confirmButton.setOnClickListener(v -> confirmButtonClicked());
 
         builder.setView(view);
         return builder.create();
@@ -64,7 +67,7 @@ public class AddItineraryFragment extends DialogFragment {
     private void getUIElements(View view) {
         cancelButton = view.findViewById(R.id.cancelButton);
         confirmButton = view.findViewById(R.id.confirmButton);
-        addActivity = view.findViewById(R.id.editTextOrigin);
+        addActivity = view.findViewById(R.id.editTextActivity);
         addLocation = view.findViewById(R.id.editTextLocation);
         addCost = view.findViewById(R.id.editTextCost);
         startTimeButton = view.findViewById(R.id.timeStartedButton);
@@ -80,6 +83,10 @@ public class AddItineraryFragment extends DialogFragment {
         String activity = addActivity.getText().toString();
         String location = addLocation.getText().toString();
         String cost = String.valueOf(addCost.getAlpha());
+
+        Itinerary newItinerary = new Itinerary(activityDate, timeStarted, timeEnded, location, activity, addCost.getAlpha());
+        Log.d("testing", "we got to here");
+        selectedTrip.addItinerary(newItinerary);
     }
 
 

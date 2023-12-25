@@ -31,12 +31,8 @@ public class TripManagerDB {
         CollectionReference tripCollection = userCollection.document(currentUser.getUsername()).collection("trips");
         tripCollection.document(trip.getUniqueId().toString())
                 .set(trip)
-                .addOnSuccessListener(unused -> {
-                    Log.d("Firestore", String.format("Trip %s Added!", trip.getDestination()));
-                })
-                .addOnFailureListener(e -> {
-                    Log.e("Firestore", "Error adding trip", e);
-                });
+                .addOnSuccessListener(unused -> Log.d("Firestore", String.format("Trip %s Added!", trip.getDestination())))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error adding trip", e));
     }
 
 }

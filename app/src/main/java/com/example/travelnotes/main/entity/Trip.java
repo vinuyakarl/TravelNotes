@@ -1,5 +1,9 @@
 package com.example.travelnotes.main.entity;
 
+import android.util.Log;
+
+import com.example.travelnotes.main.control.ItineraryDB;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,7 +19,7 @@ public class Trip implements Serializable {
     private Date tripStarted;
     private Date tripEnded;
     private Float cost;
-    private ArrayList<Itinerary> itineraries;
+    private ArrayList<Itinerary> itineraries = new ArrayList<>();
 
     public Trip(String destination, String origin, Date tripStarted, Date tripEnded, Float cost) {
         this.destination = destination;
@@ -24,8 +28,6 @@ public class Trip implements Serializable {
         this.tripStarted = tripStarted;
         this.tripEnded = tripEnded;
         this.cost = cost;
-
-        this.itineraries = new ArrayList();
     }
 
     public Trip() {
@@ -85,5 +87,12 @@ public class Trip implements Serializable {
 
     public void setItineraries(ArrayList<Itinerary> itineraries) {
         this.itineraries = itineraries;
+    }
+
+    public void addItinerary(Itinerary itinerary) {
+        itineraries.add(itinerary);
+        Log.d("testing", "why can't we get here");
+        ItineraryDB itineraryDB = new ItineraryDB();
+        itineraryDB.addItineraryToTripDB(this, itinerary);
     }
 }

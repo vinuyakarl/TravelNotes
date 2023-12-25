@@ -14,12 +14,14 @@ public class ItineraryDB {
 
     public ItineraryDB() {
         db = FirebaseFirestore.getInstance();
-        tripCollection = db.collection("itineraries");
+        tripCollection = db.collection("trips");
     }
 
     public void addItineraryToTripDB(Trip trip, Itinerary itinerary) {
-        tripCollection.document(trip.getUniqueId().toString()).set(itinerary)
-                .addOnSuccessListener(aVoid -> Log.d("Firebase", "Itinerary successfully written!"))
-                .addOnFailureListener(e -> Log.w("Firebase", "Error writing itinerary", e));
+        CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
+        itineraryCollection.document(itinerary.getUniqueID().toString())
+                .set(itinerary)
+                .addOnSuccessListener(unused -> Log.d("Firestore", String.format("Itinerary added!", trip.getDestination())))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error adding itinerary", e));
     }
 }

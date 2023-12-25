@@ -108,9 +108,9 @@ public class AddTripFragment extends DialogFragment {
 
         boolean isValid = isInputValid(origin, destination, cost);
         if (isValid) {
-            Toast.makeText(getContext(), "Trip Added", Toast.LENGTH_SHORT).show();
             Trip newTrip = new Trip(destination, origin, tripStarted, tripEnded, addCost.getAlpha());
             currentTripManager.addTrip(newTrip);
+            Toast.makeText(getContext(), "Trip Added", Toast.LENGTH_SHORT).show();
             dismiss();
 
         }

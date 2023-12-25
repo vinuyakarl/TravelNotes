@@ -2,18 +2,25 @@ package com.example.travelnotes.main.entity;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.UUID;
 
 public class Itinerary {
-    private LocalTime time;
-    private String description;
+    private LocalTime timeStart;
+    private LocalTime timeEnd;
+    private String activity;
+    private String location;
     private Float cost;
     private Date date;
+    private UniqueID uniqueID;
 
-    public Itinerary(Date date, LocalTime time, String description, Float cost) {
+    public Itinerary(Date date, LocalTime timeStart, LocalTime timeEnd, String location, String activity, Float cost) {
         this.date = date;
-        this.time = time;
-        this.description = description;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.location = location;
+        this.activity = activity;
         this.cost = cost;
+        this.uniqueID = new UniqueID();
     }
 
     public Itinerary() {
@@ -35,19 +42,43 @@ public class Itinerary {
         this.date = date;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalTime getTimeStart() {
+        return timeStart;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setTimeStart(LocalTime timeStart) {
+        this.timeStart = timeStart;
     }
 
-    public String getDescription() {
-        return description;
+    public LocalTime getTimeEnd() {
+        return timeEnd;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTimeEnd(LocalTime timeEnd) {
+        this.timeEnd = timeEnd;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+
+    public UUID getUniqueID() {
+        return uniqueID.getID();
+    }
+
+    public void setUniqueID(UniqueID uniqueID) {
+        this.uniqueID = uniqueID;
     }
 }
