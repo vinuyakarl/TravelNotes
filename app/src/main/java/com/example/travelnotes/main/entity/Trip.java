@@ -94,9 +94,4 @@ public class Trip implements Serializable {
         ItineraryDB itineraryDB = new ItineraryDB();
         itineraryDB.addItineraryToTripDB(this, itinerary);
     }
-
-    public void fetchItineraries() {
-        ItineraryDB itineraryDB = new ItineraryDB();
-        itineraryDB.fetchItinerariesDB();
-    }
 }

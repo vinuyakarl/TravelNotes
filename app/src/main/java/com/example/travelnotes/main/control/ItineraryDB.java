@@ -33,8 +33,7 @@ public class ItineraryDB {
                 .addOnFailureListener(e -> Log.e("Firestore", "Error adding itinerary", e));
     }
 
-    public void fetchItinerariesDB() {
-        TripManager trips = currentUser.getTripManager();
+    public void fetchItinerariesDB(TripManager trips) {
         for (Trip trip: trips.getTrips()) {
             ArrayList<Itinerary> itinerariesDB = new ArrayList<>();
             CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId()).collection("itineraries");
@@ -42,8 +41,10 @@ public class ItineraryDB {
                     .addOnSuccessListener(queryDocumentSnapshots -> {
                         for (QueryDocumentSnapshot itineraryDoc: queryDocumentSnapshots) {
                             Itinerary itinerary = itineraryDoc.toObject(Itinerary.class);
-                            Log.d("fetching", itinerary.getTimeEnd());
+                            itinerariesDB.add(itinerary);
+                            Log.d("Firebase", itinerary.getActivity() + " successfully fetched");
                         }
+                        trip.setItineraries(itinerariesDB);
                     });
         }
     }

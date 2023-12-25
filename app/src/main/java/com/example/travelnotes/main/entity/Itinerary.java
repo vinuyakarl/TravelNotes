@@ -1,10 +1,11 @@
 package com.example.travelnotes.main.entity;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.UUID;
 
-public class Itinerary {
+public class Itinerary implements Serializable {
     private String timeStart;
     private String timeEnd;
     private String activity;

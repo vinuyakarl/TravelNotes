@@ -4,6 +4,7 @@ import android.util.Log;
 import android.widget.ArrayAdapter;
 
 import com.example.travelnotes.main.adapters.TripAdapter;
+import com.example.travelnotes.main.control.ItineraryDB;
 import com.example.travelnotes.main.control.TripManagerDB;
 
 import java.util.ArrayList;
@@ -33,4 +34,8 @@ public class TripManager {
         this.trips = trips;
     }
 
+    public void fetchItineraries() {
+        ItineraryDB itineraryDB = new ItineraryDB();
+        itineraryDB.fetchItinerariesDB(this);
+    }
 }
