@@ -38,7 +38,6 @@ public class ViewTripActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_trip);
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
-
         itineraryAdapter = new ItineraryAdapter(this, selectedTrip.getItineraries());
         itineraryListView = findViewById(R.id.itineraryListView);
         itineraryListView.setAdapter(itineraryAdapter);

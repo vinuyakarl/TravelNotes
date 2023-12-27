@@ -27,7 +27,6 @@ public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
         super(context, 0, itineraryList);
         this.itineraryList = itineraryList;
         this.inflater = LayoutInflater.from(context);
-        sortItineraryList();
     }
 
     public void sortItineraryList() {
@@ -38,6 +37,7 @@ public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        sortItineraryList();
         View view = convertView;
 
         if (view == null) {

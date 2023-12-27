@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +20,8 @@ import androidx.fragment.app.DialogFragment;
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.Itinerary;
 import com.example.travelnotes.main.entity.Trip;
+import com.example.travelnotes.main.entity.User;
+import com.example.travelnotes.main.entity.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -41,6 +42,7 @@ public class AddItineraryFragment extends DialogFragment {
     private LocalTime timeStarted;
     private LocalTime timeEnded;
     private Date activityDate;
+    private User currentUser = UserManager.getInstance().getCurrentUser();
 
     @NonNull
     @Override
@@ -89,6 +91,7 @@ public class AddItineraryFragment extends DialogFragment {
             Itinerary newItinerary = new Itinerary(activityDate, timeStarted.toString(), timeEnded.toString(), location, activity, Float.parseFloat(cost));
             selectedTrip.addItinerary(newItinerary);
             Toast.makeText(getContext(), "Itinerary Added", Toast.LENGTH_SHORT).show();
+            currentUser.getTripManager().fetchItineraries();
             dismiss();
         }
     }
