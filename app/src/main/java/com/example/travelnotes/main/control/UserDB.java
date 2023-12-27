@@ -2,11 +2,15 @@ package com.example.travelnotes.main.control;
 
 import android.util.Log;
 
+import com.example.travelnotes.main.entity.Trip;
+import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -31,12 +35,21 @@ public class UserDB {
         ArrayList<User> usersDB = new ArrayList<>();
         userCollection.get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    for (QueryDocumentSnapshot doc: queryDocumentSnapshots) {
-                        User user = doc.toObject(User.class);
+                    for (QueryDocumentSnapshot userDoc: queryDocumentSnapshots) {
+                        User user = userDoc.toObject(User.class);
                         usersDB.add(user);
-                        Log.d("Firestore", user.getUsername());
+                        ArrayList<Trip> tripsDB = new ArrayList<>();
+                        userDoc.getReference().collection("trips").get()
+                                .addOnSuccessListener(tripsDocumentSnapshots -> {
+                                    for (QueryDocumentSnapshot tripDoc: tripsDocumentSnapshots) {
+                                        Trip trip = tripDoc.toObject(Trip.class);
+                                        tripsDB.add(trip);
+                                        Log.d("Firebase", trip.getOrigin() + " successfully fetched");
+                                    }
+                                    user.getTripManager().setTrips(tripsDB);
+                                });
                     }
+                    userManager.setUsers(usersDB);
                 });
-        userManager.setUsers(usersDB);
     }
 }
