@@ -74,6 +74,11 @@ public class Trip implements Serializable {
     }
 
     public Float getCost() {
+        Float unofficialCost = 0f;
+        for (Itinerary itinerary: this.itineraries) {
+             unofficialCost += itinerary.getCost();
+        }
+        this.cost = unofficialCost;
         return cost;
     }
 

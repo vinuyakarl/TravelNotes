@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -43,6 +45,25 @@ public class AddItineraryFragment extends DialogFragment {
     private LocalTime timeEnded;
     private Date activityDate;
     private User currentUser = UserManager.getInstance().getCurrentUser();
+
+    public interface DialogCloseListener {
+        void onDialogClosed();
+    }
+
+    private DialogCloseListener listener;
+
+    // Set the listener
+    public void setDialogCloseListener(DialogCloseListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (listener != null) {
+            listener.onDialogClosed();
+        }
+    }
 
     @NonNull
     @Override

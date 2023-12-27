@@ -20,7 +20,7 @@ import com.example.travelnotes.main.fragments.AddItineraryFragment;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
-public class ViewTripActivity extends AppCompatActivity {
+public class ViewTripActivity extends AppCompatActivity implements AddItineraryFragment.DialogCloseListener {
     private AddItineraryFragment addItineraryFragment;
     private Trip selectedTrip;
     private TextView destinationViewText;
@@ -64,11 +64,18 @@ public class ViewTripActivity extends AppCompatActivity {
         String formattedTripStart = dateFormat.format(selectedTrip.getTripStarted());
         String formattedTripEnded = dateFormat.format(selectedTrip.getTripEnded());
         dateViewText.setText(formattedTripStart + " - " + formattedTripEnded);
+        costViewText.setText(String.format("$%.2f", selectedTrip.getCost()));
     }
 
     public void addItineraryButtonClicked() {
         addItineraryFragment = new AddItineraryFragment(selectedTrip);
+        addItineraryFragment.setDialogCloseListener(this);
         addItineraryFragment.show(getSupportFragmentManager(), "ADD_ITINERARY");
+    }
+
+    @Override
+    public void onDialogClosed() {
+        costViewText.setText(String.format("$%.2f", selectedTrip.getCost()));
     }
 
     public void doneButtonClicked() {
