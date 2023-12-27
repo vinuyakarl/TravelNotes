@@ -15,6 +15,8 @@ import com.example.travelnotes.main.entity.Itinerary;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Locale;
 
 public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
@@ -25,7 +27,13 @@ public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
         super(context, 0, itineraryList);
         this.itineraryList = itineraryList;
         this.inflater = LayoutInflater.from(context);
+        sortItineraryList();
     }
+
+    public void sortItineraryList() {
+        Collections.sort(this.itineraryList, Comparator.comparing(Itinerary::getDateAndTime));
+    }
+
 
     @NonNull
     @Override

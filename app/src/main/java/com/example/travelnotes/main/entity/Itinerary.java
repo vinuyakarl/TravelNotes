@@ -1,7 +1,10 @@
 package com.example.travelnotes.main.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -13,6 +16,7 @@ public class Itinerary implements Serializable {
     private Float cost;
     private Date date;
     private String uniqueID;
+    private Date dateAndTime;
 
     public Itinerary(Date date, String timeStart, String timeEnd, String location, String activity, Float cost) {
         this.date = date;
@@ -22,6 +26,7 @@ public class Itinerary implements Serializable {
         this.activity = activity;
         this.cost = cost;
         this.uniqueID = new UniqueID().getID();
+        calculateDateAndTime();
     }
 
     public Itinerary() {
@@ -81,5 +86,17 @@ public class Itinerary implements Serializable {
 
     public void setUniqueID(String uniqueID) {
         this.uniqueID = uniqueID;
+    }
+
+    public void calculateDateAndTime() {
+        Calendar newDate = Calendar.getInstance();
+        LocalDate localDate = this.date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalTime localTime = LocalTime.parse(this.getTimeStart());
+        newDate.set(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), localTime.getHour(), localTime.getMinute());
+        this.dateAndTime = newDate.getTime();
+    }
+
+    public Date getDateAndTime() {
+        return dateAndTime;
     }
 }

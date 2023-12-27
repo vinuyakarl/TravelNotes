@@ -105,8 +105,7 @@ public class AddItineraryFragment extends DialogFragment {
                     activityDate = newDate.getTime();
 
 
-                    Log.d("valid-before", String.valueOf(activityDate.before(selectedTrip.getTripStarted())));
-                    Log.d("valid-after", String.valueOf(activityDate.after(selectedTrip.getTripEnded())));
+
                     if (activityDate.after(selectedTrip.getTripEnded()) || activityDate.before(selectedTrip.getTripStarted())) {
                         Toast.makeText(getContext(), "Select a Valid Date Within Trip Range", Toast.LENGTH_SHORT).show();
                         dateButtonClicked();
