@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/black_border">
+
+
+    <TextView
+        android:id="@+id/itineraryActivityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="Activity"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/itineraryDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        android:text="Date"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/itineraryActivityTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/itineraryActivityTextView" />
+
+    <TextView
+        android:id="@+id/itineraryLocationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/itineraryActivityTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itineraryActivityTextView" />
+
+    <TextView
+        android:id="@+id/itineraryCostTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cost"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/itineraryLocationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itineraryLocationTextView" />
+
+    <TextView
+        android:id="@+id/itineraryTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/itineraryDateTextView"
+        app:layout_constraintTop_toBottomOf="@+id/itineraryDateTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

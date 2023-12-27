@@ -60,7 +60,6 @@ public class AddTripFragment extends DialogFragment {
         confirmButton = view.findViewById(R.id.confirmButton);
         addOrigin = view.findViewById(R.id.editTextOrigin);
         addDestination = view.findViewById(R.id.editTextDestination);
-        addCost = view.findViewById(R.id.editTextCost);
         startDateButton = view.findViewById(R.id.dateStartedButton);
         endDateButton = view.findViewById(R.id.dateEndedButton);
     }
@@ -72,14 +71,15 @@ public class AddTripFragment extends DialogFragment {
                 (view, year, monthOfYear, dayOfMonth) -> {
                     Calendar newDate = Calendar.getInstance();
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                    newDate.set(year, monthOfYear, dayOfMonth);
 
                     if (dateButton == startDateButton) {
+                        newDate.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
                         tripStarted = newDate.getTime();
                         String formattedTripStart = dateFormat.format(tripStarted);
                         dateButton.setText(formattedTripStart);
                     }
                     else {
+                        newDate.set(year, monthOfYear, dayOfMonth, 23, 59, 59);
                         tripEnded = newDate.getTime();
                         String formattedTripEnd = dateFormat.format(tripEnded);
                         dateButton.setText(formattedTripEnd);
@@ -104,11 +104,10 @@ public class AddTripFragment extends DialogFragment {
     private void confirmButtonClicked() {
         String origin = addOrigin.getText().toString();
         String destination = addDestination.getText().toString();
-        String cost = String.valueOf(addCost.getAlpha());
 
-        boolean isValid = isInputValid(origin, destination, cost);
+        boolean isValid = isInputValid(origin, destination);
         if (isValid) {
-            Trip newTrip = new Trip(destination, origin, tripStarted, tripEnded, addCost.getAlpha());
+            Trip newTrip = new Trip(destination, origin, tripStarted, tripEnded, 0.00f);
             currentTripManager.addTrip(newTrip);
             Toast.makeText(getContext(), "Trip Added", Toast.LENGTH_SHORT).show();
             dismiss();
@@ -116,23 +115,22 @@ public class AddTripFragment extends DialogFragment {
         }
     }
 
-    private boolean isInputValid(String origin, String destination, String cost) {
-        boolean anyFieldsEmpty = origin.isEmpty() || destination.isEmpty() || cost.isEmpty();
+    private boolean isInputValid(String origin, String destination) {
+        boolean anyFieldsEmpty = origin.isEmpty() || destination.isEmpty();
         boolean anyDatesEmpty = tripStarted == null || tripEnded == null;
-        boolean isValid = true;
 
         // Check if any fields is empty
         if (anyFieldsEmpty || anyDatesEmpty) {
             Toast.makeText(getContext(), "Please Fill Out All Fields", Toast.LENGTH_SHORT).show();
-            isValid = false;
+            return false;
         }
 
         // Check if trip date is valid
         if (tripStarted.compareTo(tripEnded) == 1) {
             Toast.makeText(getContext(), "Invalid Trip Date", Toast.LENGTH_SHORT).show();
-            isValid = false;
+            return false;
         }
 
-        return isValid;
+        return true;
     }
 }

@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.travelnotes.R;
+import com.example.travelnotes.main.adapters.ItineraryAdapter;
 import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
@@ -27,8 +29,8 @@ public class ViewTripActivity extends AppCompatActivity {
     private TextView costViewText;
     private Button doneButton;
     private Button addItineraryButton;
-    private Button logoutButton;
-    private User currentUser = UserManager.getInstance().getCurrentUser();
+    private ItineraryAdapter itineraryAdapter;
+    private ListView itineraryListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +39,14 @@ public class ViewTripActivity extends AppCompatActivity {
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
 
+        itineraryAdapter = new ItineraryAdapter(this, selectedTrip.getItineraries());
+        itineraryListView = findViewById(R.id.itineraryListView);
+        itineraryListView.setAdapter(itineraryAdapter);
+
         getUIElements();
         setTexts();
         addItineraryButton.setOnClickListener(v -> addItineraryButtonClicked());
+        doneButton.setOnClickListener(v -> doneButtonClicked());
     }
 
     public void getUIElements() {
@@ -60,8 +67,13 @@ public class ViewTripActivity extends AppCompatActivity {
         dateViewText.setText(formattedTripStart + " - " + formattedTripEnded);
     }
 
-    private void addItineraryButtonClicked() {
+    public void addItineraryButtonClicked() {
         addItineraryFragment = new AddItineraryFragment(selectedTrip);
         addItineraryFragment.show(getSupportFragmentManager(), "ADD_ITINERARY");
+    }
+
+    public void doneButtonClicked() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

@@ -33,7 +33,7 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         View view = convertView;
 
         if (view == null) {
-            view = inflater.inflate(R.layout.list_content, null);
+            view = inflater.inflate(R.layout.home_page_list_content, null);
         }
         Trip trip = trips.get(position);
 

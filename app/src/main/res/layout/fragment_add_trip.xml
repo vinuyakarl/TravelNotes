@@ -70,29 +70,15 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextDestination"
         app:layout_constraintTop_toBottomOf="@+id/editTextDestination" />
 
-    <EditText
-        android:id="@+id/editTextCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/primary"
-        android:ems="15"
-        android:hint="Enter Trip Cost:"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateEndedButton" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:text="Confirm"
         android:textColor="@color/primary"
-        app:layout_constraintEnd_toEndOf="@+id/editTextCost"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCost" />
+        app:layout_constraintEnd_toEndOf="@+id/dateEndedButton"
+        app:layout_constraintTop_toBottomOf="@+id/dateEndedButton" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancelButton"
