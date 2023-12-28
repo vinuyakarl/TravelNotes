@@ -1,11 +1,14 @@
 package com.example.travelnotes.main.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +16,7 @@ import androidx.annotation.Nullable;
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.Trip;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,14 +24,14 @@ import java.util.Comparator;
 import java.util.Locale;
 
 public class TripAdapter extends ArrayAdapter<Trip> {
-    private  ArrayList<Trip> trips;
+    private ArrayList<Trip> allTrips;
     private LayoutInflater inflater;
     private String chosenSortOption = "Date";
     private String chosenSortDirection = "Ascending";
 
     public TripAdapter(Context context, ArrayList<Trip> trips) {
         super(context, 0, trips);
-        this.trips = trips;
+        this.allTrips = new ArrayList<>(trips);
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -63,19 +67,19 @@ public class TripAdapter extends ArrayAdapter<Trip> {
             comparator = comparator.reversed();
         }
 
-        Collections.sort(this.trips, comparator);
+        Collections.sort(this.allTrips, comparator);
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View view = convertView;
 
+        View view = convertView;
         if (view == null) {
             view = inflater.inflate(R.layout.home_page_list_content, null);
         }
-        Trip trip = trips.get(position);
+        Trip trip = allTrips.get(position);
 
         TextView tripDestination = view.findViewById(R.id.destinationTextView);
         TextView tripDate = view.findViewById(R.id.dateTextView);
@@ -87,5 +91,23 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         tripDate.setText(stringStartDate + " - "  + stringEndDate);
 
         return view;
+    }
+
+    @Override
+    public int getCount() {
+        return allTrips.size();
+    }
+
+    @Override
+    public Trip getItem(int position) {
+        return allTrips.get(position);
+    }
+
+    public void setTrips(ArrayList<Trip> trips) {
+        this.allTrips = trips;
+    }
+
+    public void addTrip(Trip trip) {
+        allTrips.add(trip);
     }
 }

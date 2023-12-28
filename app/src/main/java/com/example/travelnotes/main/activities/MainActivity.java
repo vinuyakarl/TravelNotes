@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,8 @@ import com.example.travelnotes.main.entity.UserManager;
 import com.example.travelnotes.main.fragments.AddTripFragment;
 import com.example.travelnotes.main.fragments.SortTripFragment;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements SortTripFragment.OnSortOptionSelectedListener, AddTripFragment.OnTripAddedListener{
     private TripAdapter tripAdapter;
     private ListView tripListView;
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     private Button addButton;
     private Button logoutButton;
     private Button sortButton;
+    private SearchView searchBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         String username = currentUser.getUsername();
 
         tripManager = currentUser.getTripManager();
+        Log.d("Searching", "Before" + tripManager.getTrips().size());
 
         TextView nameTextView = findViewById(R.id.nameText);
         nameTextView.setText(username);
@@ -53,6 +58,19 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         addButton.setOnClickListener(v -> addButtonPressed());
         logoutButton.setOnClickListener(v -> logoutButtonPressed());
         sortButton.setOnClickListener(v -> sortButtonPressed());
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                performSearch(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                performSearch(newText);
+                return false;
+            }
+        });
     }
 
 
@@ -60,9 +78,11 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         addButton = findViewById(R.id.addIcon);
         logoutButton = findViewById(R.id.logoutButton);
         sortButton = findViewById(R.id.sortButton);
+        searchBar = findViewById(R.id.homePageSearch);
     }
 
     private void tripListPressed(int position) {
+        tripAdapter.getFilter().filter(null);
         Trip selectedTrip = tripManager.getTrip(position);
         Intent intent = new Intent(getApplicationContext(), ViewTripActivity.class);
         intent.putExtra("selectedTrip", selectedTrip);
@@ -92,6 +112,19 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
 
     @Override
     public void onTripAdded() {
+        tripListPressed(tripManager.getTrips().size() - 1);
         tripAdapter.sortTripsList(null, null); // Add the trip and sort
     }
+
+    public void performSearch(String query) {
+        ArrayList<Trip> searchedTrips = new ArrayList<>();
+        for (Trip trip: tripManager.getTrips()) {
+            if (trip.matchesQuery(query)) {
+                searchedTrips.add(trip);
+            }
+        }
+        tripAdapter.setTrips(searchedTrips);
+        tripAdapter.notifyDataSetChanged();
+    }
+
 }

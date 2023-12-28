@@ -99,4 +99,12 @@ public class Trip implements Serializable {
         ItineraryDB itineraryDB = new ItineraryDB();
         itineraryDB.addItineraryToTripDB(this, itinerary);
     }
+
+    public boolean matchesQuery(String query) {
+        if (this.destination.toLowerCase().contains(query.toLowerCase())) {
+            return true;
+        }
+        return false;
+    }
+
 }
