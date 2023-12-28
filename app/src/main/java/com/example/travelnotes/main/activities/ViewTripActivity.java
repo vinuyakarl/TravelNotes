@@ -39,6 +39,7 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
         Intent intent = getIntent();
         selectedTrip = (Trip) intent.getSerializableExtra("selectedTrip");
         itineraryAdapter = new ItineraryAdapter(this, selectedTrip.getItineraries());
+        itineraryAdapter.sortItineraryList();
         itineraryListView = findViewById(R.id.itineraryListView);
         itineraryListView.setAdapter(itineraryAdapter);
 
@@ -75,6 +76,7 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
 
     @Override
     public void onDialogClosed() {
+        itineraryAdapter.sortItineraryList();
         costViewText.setText(String.format("$%.2f", selectedTrip.getCost()));
     }
 

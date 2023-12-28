@@ -113,13 +113,13 @@
             android:background="@drawable/delete_icon" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton2"
+            android:id="@+id/sortButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:background="@drawable/filter_icon" />
+            android:background="@drawable/sort_icon" />
 
     </LinearLayout>
 

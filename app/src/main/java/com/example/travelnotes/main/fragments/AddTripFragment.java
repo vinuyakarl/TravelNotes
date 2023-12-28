@@ -3,6 +3,7 @@ package com.example.travelnotes.main.fragments;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +30,27 @@ public class AddTripFragment extends DialogFragment {
     private Button confirmButton;
     private EditText addOrigin;
     private EditText addDestination;
-    private EditText addCost;
     private Button startDateButton;
     private Button endDateButton;
     private Date tripStarted;
     private Date tripEnded;
     private TripManager currentTripManager;
+    private OnTripAddedListener tripAddedListener;
+
+    public interface OnTripAddedListener {
+        void onTripAdded();
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            tripAddedListener = (OnTripAddedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnTripAddedListener");
+        }
+    }
 
     @NonNull
     @Override
@@ -109,6 +125,9 @@ public class AddTripFragment extends DialogFragment {
         if (isValid) {
             Trip newTrip = new Trip(destination, origin, tripStarted, tripEnded, 0.00f);
             currentTripManager.addTrip(newTrip);
+            if (tripAddedListener != null) {
+                tripAddedListener.onTripAdded();
+            }
             Toast.makeText(getContext(), "Trip Added", Toast.LENGTH_SHORT).show();
             dismiss();
 

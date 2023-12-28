@@ -37,7 +37,6 @@ public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        sortItineraryList();
         View view = convertView;
 
         if (view == null) {

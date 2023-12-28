@@ -45,12 +45,12 @@ public class AddItineraryFragment extends DialogFragment {
     private LocalTime timeEnded;
     private Date activityDate;
     private User currentUser = UserManager.getInstance().getCurrentUser();
+    private DialogCloseListener listener;
 
     public interface DialogCloseListener {
         void onDialogClosed();
     }
 
-    private DialogCloseListener listener;
 
     // Set the listener
     public void setDialogCloseListener(DialogCloseListener listener) {
