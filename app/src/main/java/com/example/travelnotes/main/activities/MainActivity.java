@@ -113,7 +113,6 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     @Override
     public void onTripAdded() {
         tripListPressed(tripManager.getTrips().size() - 1);
-        tripAdapter.sortTripsList(null, null); // Add the trip and sort
     }
 
     public void performSearch(String query) {
