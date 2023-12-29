@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -29,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     private TripAdapter tripAdapter;
     private ListView tripListView;
     private TripManager tripManager;
-    private UserManager userManager = UserManager.getInstance();
-    private User currentUser = userManager.getCurrentUser();
+    private final UserManager userManager = UserManager.getInstance();
+    private final User currentUser = userManager.getCurrentUser();
     private Button addButton;
     private Button logoutButton;
     private Button sortButton;
@@ -82,8 +80,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     }
 
     private void tripListPressed(int position) {
-        tripAdapter.getFilter().filter(null);
-        Trip selectedTrip = tripManager.getTrip(position);
+        Trip selectedTrip = tripAdapter.getItem(position);
         Intent intent = new Intent(getApplicationContext(), ViewTripActivity.class);
         intent.putExtra("selectedTrip", selectedTrip);
         startActivity(intent);
@@ -112,7 +109,8 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
 
     @Override
     public void onTripAdded() {
-        tripListPressed(tripManager.getTrips().size() - 1);
+        tripAdapter.setTrips(tripManager.getTrips());
+        tripAdapter.sortTripsList(null, null);
     }
 
     public void performSearch(String query) {
@@ -125,5 +123,4 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         tripAdapter.setTrips(searchedTrips);
         tripAdapter.notifyDataSetChanged();
     }
-
 }

@@ -20,6 +20,7 @@ public class Trip implements Serializable {
     private Date tripEnded;
     private Float cost;
     private ArrayList<Itinerary> itineraries = new ArrayList<>();
+    private Boolean isSelected = false;
 
     public Trip(String destination, String origin, Date tripStarted, Date tripEnded, Float cost) {
         this.destination = destination;
@@ -107,4 +108,11 @@ public class Trip implements Serializable {
         return false;
     }
 
+    public Boolean getSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
 }

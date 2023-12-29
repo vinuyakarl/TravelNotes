@@ -26,6 +26,11 @@ public class TripManager {
         tripManagerDB.addTripToDB(newTrip);
     }
 
+    public void deleteTrip(Trip trip) {
+        trips.remove(trip);
+        tripManagerDB.deleteTripFromDB(trip);
+    }
+
     public ArrayList<Trip> getTrips() {
         return trips;
     }

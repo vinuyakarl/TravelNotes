@@ -81,6 +81,7 @@
         android:layout_height="75dp"
         android:background="@color/primary"
         android:paddingHorizontal="16dp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -90,8 +91,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
+            android:layout_margin="50dp"
             android:background="@drawable/profile_icon" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -99,26 +99,15 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
+            android:layout_margin="50dp"
             android:background="@drawable/add_icon" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/appCompatButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:background="@drawable/delete_icon" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sortButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
+            android:layout_margin="50dp"
             android:background="@drawable/sort_icon" />
 
     </LinearLayout>
