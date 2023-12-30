@@ -43,7 +43,7 @@ public class TripManagerDB {
     public void deleteTripFromDB(Trip trip) {
         User currentUser = userManager.getCurrentUser();
         CollectionReference tripCollection = userCollection.document(currentUser.getUsername()).collection("trips");
-        tripCollection.document(trip.getUniqueId()).delete().addOnSuccessListener(unused -> Log.d("Deleting", trip.getDestination()));
+        tripCollection.document(trip.getUniqueId()).delete().addOnSuccessListener(unused -> Log.d("Deleting", "Successfully deleted " + trip.getDestination()));
     }
 
 }

@@ -116,4 +116,9 @@ public class TripAdapter extends ArrayAdapter<Trip> {
 
     }
 
+    public void deleteTrip(Trip trip) {
+        this.allTrips.remove(trip);
+        notifyDataSetChanged();
+    }
+
 }

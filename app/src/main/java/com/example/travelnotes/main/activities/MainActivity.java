@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     private Button logoutButton;
     private Button sortButton;
     private SearchView searchBar;
+    private Trip selectedTrip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     }
 
     private void tripListPressed(int position) {
-        Trip selectedTrip = tripAdapter.getItem(position);
+        selectedTrip = tripAdapter.getItem(position);
         Intent intent = new Intent(getApplicationContext(), ViewTripActivity.class);
         intent.putExtra("selectedTrip", selectedTrip);
         startActivity(intent);
@@ -109,8 +110,9 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
 
     @Override
     public void onTripAdded() {
-        tripAdapter.setTrips(tripManager.getTrips());
         tripAdapter.sortTripsList(null, null);
+        tripAdapter.setTrips(tripManager.getTrips());
+        tripListPressed(tripAdapter.getCount() - 1);
     }
 
     public void performSearch(String query) {
@@ -122,5 +124,25 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         }
         tripAdapter.setTrips(searchedTrips);
         tripAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent resumeIntent = getIntent();
+        if (resumeIntent.hasExtra("toBeDel")) {
+            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+            selectedTrip = (Trip) resumeIntent.getSerializableExtra("toBeDel");
+            tripManager.deleteTrip(selectedTrip);
+            ArrayList<Trip> newTrips = new ArrayList<>();
+            for (Trip trip: tripManager.getTrips()) {
+                if (!trip.getUniqueId().equals(selectedTrip.getUniqueId())) {
+                    newTrips.add(trip);
+                }
+            }
+            tripManager.setTrips(newTrips);
+            tripAdapter.setTrips(newTrips);
+            tripAdapter.notifyDataSetChanged();
+        }
     }
 }

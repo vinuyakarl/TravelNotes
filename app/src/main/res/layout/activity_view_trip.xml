@@ -114,18 +114,29 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:background="@color/primary"
+        android:gravity="center"
         android:paddingHorizontal="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/editButton"
-            android:text="Edit"
+            android:id="@+id/editButton2"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/gray_border_button"
+            android:text="Edit" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteButton"
+            android:text="Delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:background="@drawable/gray_border_button"/>
 
@@ -136,7 +147,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"/>
 
     </LinearLayout>

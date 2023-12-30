@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class TripManager {
     private ArrayList<Trip> trips;
     private TripManagerDB tripManagerDB = new TripManagerDB();
+    private ItineraryDB itineraryDB = new ItineraryDB();
     public TripManager() {
         trips = new ArrayList<>();
     }
@@ -28,6 +29,7 @@ public class TripManager {
 
     public void deleteTrip(Trip trip) {
         trips.remove(trip);
+        itineraryDB.deleteAllItinerariesDB(trip);
         tripManagerDB.deleteTripFromDB(trip);
     }
 
@@ -40,7 +42,6 @@ public class TripManager {
     }
 
     public void fetchItineraries() {
-        ItineraryDB itineraryDB = new ItineraryDB();
         itineraryDB.fetchItinerariesDB(this);
     }
 }

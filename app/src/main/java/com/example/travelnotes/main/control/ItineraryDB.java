@@ -9,6 +9,7 @@ import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -47,5 +48,18 @@ public class ItineraryDB {
                         trip.setItineraries(itinerariesDB);
                     });
         }
+    }
+
+    public void deleteAllItinerariesDB(Trip trip) {
+        CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
+        itineraryCollection.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    itineraryCollection.document(document.getId()).delete()
+                            .addOnSuccessListener(aVoid -> Log.d("Firebase", "Successfully deleted itinerary: " + document.getId()))
+                            .addOnFailureListener(e -> Log.w("Firebase", "Error deleting itinerary", e));
+                }
+            }
+        });
     }
 }
