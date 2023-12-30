@@ -46,4 +46,29 @@ public class TripManagerDB {
         tripCollection.document(trip.getUniqueId()).delete().addOnSuccessListener(unused -> Log.d("Deleting", "Successfully deleted " + trip.getDestination()));
     }
 
+    public void editTripInDB(Trip oldTrip, Trip newTrip) {
+        User currentUser = userManager.getCurrentUser();
+        DocumentReference tripDocument = userCollection.document(currentUser.getUsername()).collection("trips").document(oldTrip.getUniqueId());
+        tripDocument.update("origin", newTrip.getOrigin(),
+                "destination", newTrip.getDestination(),
+                "tripStarted", newTrip.getTripStarted(),
+                "tripEnded", newTrip.getTripEnded())
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "Trip successfully updated!"))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error updating trip", e));
+    }
+
+    public void fetchTripsInDB() {
+        User currentUser = userManager.getCurrentUser();
+        CollectionReference tripDocument = userCollection.document(currentUser.getUsername()).collection("trips");
+        ArrayList<Trip> tripsDB = new ArrayList<>();
+        tripDocument.get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    for (QueryDocumentSnapshot tripDoc: queryDocumentSnapshots) {
+                        Trip trip =tripDoc.toObject(Trip.class);
+                        tripsDB.add(trip);
+                    }
+                    currentUser.getTripManager().setTrips(tripsDB);
+                });
+    }
+
 }

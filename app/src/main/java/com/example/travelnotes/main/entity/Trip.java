@@ -20,7 +20,6 @@ public class Trip implements Serializable {
     private Date tripEnded;
     private Float cost;
     private ArrayList<Itinerary> itineraries = new ArrayList<>();
-    private Boolean isSelected = false;
 
     public Trip(String destination, String origin, Date tripStarted, Date tripEnded, Float cost) {
         this.destination = destination;
@@ -108,11 +107,13 @@ public class Trip implements Serializable {
         return false;
     }
 
-    public Boolean getSelected() {
-        return isSelected;
+    public void editTrip(Trip newTrip) {
+        this.setDestination(newTrip.getDestination());
+        this.setOrigin(newTrip.getOrigin());
+        this.setTripStarted(newTrip.getTripStarted());
+        this.setTripEnded(newTrip.getTripEnded());
+        Log.d("Searching", "Befores" + this.getDestination());
     }
 
-    public void setSelected(Boolean selected) {
-        isSelected = selected;
-    }
+
 }

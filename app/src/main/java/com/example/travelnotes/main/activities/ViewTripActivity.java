@@ -17,6 +17,7 @@ import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 import com.example.travelnotes.main.fragments.AddItineraryFragment;
+import com.example.travelnotes.main.fragments.EditTripFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -30,6 +31,7 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
     private TextView costViewText;
     private Button doneButton;
     private Button deleteButton;
+    private Button editButton;
     private Button addItineraryButton;
     private ItineraryAdapter itineraryAdapter;
     private ListView itineraryListView;
@@ -50,6 +52,7 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
         addItineraryButton.setOnClickListener(v -> addItineraryButtonClicked());
         doneButton.setOnClickListener(v -> doneButtonClicked());
         deleteButton.setOnClickListener(v -> deleteButtonClicked());
+        editButton.setOnClickListener(v -> editButtonClicked());
     }
 
     public void getUIElements() {
@@ -59,6 +62,7 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
         costViewText = findViewById(R.id.costViewText);
         doneButton = findViewById(R.id.doneButton);
         deleteButton = findViewById(R.id.deleteButton);
+        editButton = findViewById(R.id.editButton);
         addItineraryButton = findViewById(R.id.addItineraryButton);
     }
 
@@ -93,5 +97,10 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         intent.putExtra("toBeDel", selectedTrip);
         startActivity(intent);
+    }
+
+    public void editButtonClicked() {
+        EditTripFragment editTripFragment = new EditTripFragment(selectedTrip);
+        editTripFragment.show(getSupportFragmentManager(), "EDIT_TRIP");
     }
 }

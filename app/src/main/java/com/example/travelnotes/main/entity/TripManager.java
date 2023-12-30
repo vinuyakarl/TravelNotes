@@ -27,6 +27,12 @@ public class TripManager {
         tripManagerDB.addTripToDB(newTrip);
     }
 
+    public void editTrip(Trip oldTrip, Trip newTrip) {
+        oldTrip.editTrip(newTrip);
+        Log.d("Searching", "Befores" + this.getTrip(0).getDestination());
+        tripManagerDB.editTripInDB(oldTrip, newTrip);
+    }
+
     public void deleteTrip(Trip trip) {
         trips.remove(trip);
         itineraryDB.deleteAllItinerariesDB(trip);
@@ -43,5 +49,9 @@ public class TripManager {
 
     public void fetchItineraries() {
         itineraryDB.fetchItinerariesDB(this);
+    }
+
+    public void fetchTrips() {
+        tripManagerDB.fetchTripsInDB();
     }
 }
