@@ -9,7 +9,7 @@
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -27,11 +27,12 @@
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/primary"
         android:ems="15"
+        android:maxLength="20"
         android:hint="Enter Origin:"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 
     <EditText
         android:id="@+id/editTextDestination"
@@ -40,6 +41,7 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/primary"
         android:ems="15"
+        android:maxLength="20"
         android:hint="Enter Destination:"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,29 +70,15 @@
         app:layout_constraintEnd_toEndOf="@+id/editTextDestination"
         app:layout_constraintTop_toBottomOf="@+id/editTextDestination" />
 
-    <EditText
-        android:id="@+id/editTextCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:backgroundTint="@color/primary"
-        android:ems="15"
-        android:hint="Enter Trip Cost:"
-        android:inputType="numberDecimal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dateEndedButton" />
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/confirmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:text="Confirm"
         android:textColor="@color/primary"
-        app:layout_constraintEnd_toEndOf="@+id/editTextCost"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCost" />
+        app:layout_constraintEnd_toEndOf="@+id/dateEndedButton"
+        app:layout_constraintTop_toBottomOf="@+id/dateEndedButton" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/cancelButton"

@@ -3,12 +3,14 @@ package com.example.travelnotes.main.fragments;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.travelnotes.R;
+import com.example.travelnotes.main.activities.ViewTripActivity;
 import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.UserManager;
@@ -25,7 +28,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddTripFragment extends DialogFragment {
+public class EditTripFragment extends DialogFragment {
+    private Trip selectedTrip;
+    private TextView titleTextView;
     private Button cancelButton;
     private Button confirmButton;
     private EditText addOrigin;
@@ -35,21 +40,9 @@ public class AddTripFragment extends DialogFragment {
     private Date tripStarted;
     private Date tripEnded;
     private TripManager currentTripManager;
-    private OnTripAddedListener tripAddedListener;
 
-    public interface OnTripAddedListener {
-        void onTripAdded();
-    }
-
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            tripAddedListener = (OnTripAddedListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnTripAddedListener");
-        }
+    public EditTripFragment(Trip trip) {
+        this.selectedTrip = trip;
     }
 
     @NonNull
@@ -62,9 +55,10 @@ public class AddTripFragment extends DialogFragment {
         currentTripManager = UserManager.getInstance().getCurrentUser().getTripManager();
 
         getUIElements(view);
+        setUITexts();
+        cancelButton.setOnClickListener(v -> cancelButtonClicked());
         startDateButton.setOnClickListener(v -> dateButtonClicked(startDateButton));
         endDateButton.setOnClickListener(v -> dateButtonClicked(endDateButton));
-        cancelButton.setOnClickListener(v -> cancelButtonClicked());
         confirmButton.setOnClickListener(v -> confirmButtonClicked());
 
         builder.setView(view);
@@ -72,12 +66,29 @@ public class AddTripFragment extends DialogFragment {
     }
 
     private void getUIElements(View view) {
+        titleTextView = view.findViewById(R.id.titleTextView);
         cancelButton = view.findViewById(R.id.cancelButton);
         confirmButton = view.findViewById(R.id.confirmButton);
         addOrigin = view.findViewById(R.id.editTextOrigin);
         addDestination = view.findViewById(R.id.editTextDestination);
         startDateButton = view.findViewById(R.id.dateStartedButton);
         endDateButton = view.findViewById(R.id.dateEndedButton);
+    }
+
+    private void setUITexts() {
+        titleTextView.setText("Edit Trip");
+        addOrigin.setText(selectedTrip.getOrigin());
+        addDestination.setText(selectedTrip.getDestination());
+
+        tripStarted = selectedTrip.getTripStarted();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String tripStart = dateFormat.format(tripStarted);
+        startDateButton.setText(tripStart);
+
+        tripEnded = selectedTrip.getTripEnded();
+        String tripEnd = dateFormat.format(tripEnded);
+        endDateButton.setText(tripEnd);
+
     }
 
     private void dateButtonClicked(Button dateButton) {
@@ -124,12 +135,11 @@ public class AddTripFragment extends DialogFragment {
         boolean isValid = isInputValid(origin, destination);
         if (isValid) {
             Trip newTrip = new Trip(destination, origin, tripStarted, tripEnded, 0.00f);
-            currentTripManager.addTrip(newTrip);
-            if (tripAddedListener != null) {
-                tripAddedListener.onTripAdded();
-            }
-            Toast.makeText(getContext(), "Trip Added", Toast.LENGTH_SHORT).show();
+            currentTripManager.editTrip(selectedTrip, newTrip);
+            currentTripManager.fetchTrips();
+            Toast.makeText(getContext(), "Trip Edited", Toast.LENGTH_SHORT).show();
             dismiss();
+            updateViewTripActivity();
 
         }
     }
@@ -151,5 +161,13 @@ public class AddTripFragment extends DialogFragment {
         }
 
         return true;
+    }
+    private void updateViewTripActivity() {
+        Intent intent = new Intent(getContext(), ViewTripActivity.class);
+        intent.putExtra("selectedTrip", selectedTrip);
+        if (getActivity() != null) {
+            getActivity().finish(); // Close the current activity
+        }
+        startActivity(intent);
     }
 }

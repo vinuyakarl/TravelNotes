@@ -1,7 +1,8 @@
 package com.example.travelnotes.main.entity;
 
+import java.io.Serializable;
 import java.util.UUID;
-public class UniqueID {
+public class UniqueID implements Serializable {
     private UUID ID;
     private long msb;
     private long lsb;
@@ -11,8 +12,8 @@ public class UniqueID {
         lsb = ID.getLeastSignificantBits();
     }
 
-    public UUID getID() {
-        return ID;
+    public String getID() {
+        return ID.toString();
     }
 
     public void setID(UUID ID) {

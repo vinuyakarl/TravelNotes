@@ -47,6 +47,7 @@ public class UserDB {
                                         Log.d("Firebase", trip.getOrigin() + " successfully fetched");
                                     }
                                     user.getTripManager().setTrips(tripsDB);
+                                    user.getTripManager().fetchItineraries();
                                 });
                     }
                     userManager.setUsers(usersDB);
