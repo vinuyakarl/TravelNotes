@@ -99,4 +99,14 @@ public class Itinerary implements Serializable {
     public Date getDateAndTime() {
         return dateAndTime;
     }
+
+    public void editItinerary(Itinerary newItinerary) {
+        this.setDate(newItinerary.getDate());
+        this.setTimeStart(newItinerary.getTimeStart());
+        this.setTimeEnd(newItinerary.getTimeEnd());
+        this.setLocation(newItinerary.getLocation());
+        this.setCost(newItinerary.getCost());
+        this.setActivity(newItinerary.getActivity());
+        calculateDateAndTime();
+    }
 }

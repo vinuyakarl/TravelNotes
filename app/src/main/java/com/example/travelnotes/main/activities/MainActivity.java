@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         String username = currentUser.getUsername();
 
         tripManager = currentUser.getTripManager();
-        Log.d("Searching", "Before" + tripManager.getTrip(0).getDestination());
 
         TextView nameTextView = findViewById(R.id.nameText);
         nameTextView.setText(username);
@@ -96,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Toast.makeText(this, currentUser.getUsername() + " Logged Out", Toast.LENGTH_SHORT).show();
+        startActivity(intent);
     }
 
     private void sortButtonPressed() {

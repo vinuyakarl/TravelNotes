@@ -100,6 +100,13 @@ public class Trip implements Serializable {
         itineraryDB.addItineraryToTripDB(this, itinerary);
     }
 
+    public void editItinerary(Itinerary oldItinerary, Itinerary newItinerary)  {
+        oldItinerary.editItinerary(newItinerary);
+        ItineraryDB itineraryDB = new ItineraryDB();
+        itineraryDB.editItineraryDB(this, oldItinerary);
+
+    }
+
     public boolean matchesQuery(String query) {
         if (this.destination.toLowerCase().contains(query.toLowerCase())) {
             return true;

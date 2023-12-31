@@ -63,4 +63,7 @@ public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
         return view;
     }
 
+    public Itinerary getItem(int position) {
+        return itineraryList.get(position);
+    }
 }
