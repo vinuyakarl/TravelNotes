@@ -107,6 +107,12 @@ public class Trip implements Serializable {
 
     }
 
+    public void deleteItinerary(Itinerary itinerary) {
+        itineraries.remove(itinerary);
+        ItineraryDB itineraryDB = new ItineraryDB();
+        itineraryDB.deleteItineraryDB(this, itinerary);
+    }
+
     public boolean matchesQuery(String query) {
         if (this.destination.toLowerCase().contains(query.toLowerCase())) {
             return true;

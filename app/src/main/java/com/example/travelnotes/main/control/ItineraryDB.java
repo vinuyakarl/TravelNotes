@@ -76,4 +76,13 @@ public class ItineraryDB {
                 .addOnSuccessListener(aVoid -> Log.d("Firestore", "Itinerary successfully updated!"))
                 .addOnFailureListener(e -> Log.e("Firestore", "Error updating itinerary", e));
     }
+
+    public void deleteItineraryDB(Trip trip, Itinerary itinerary) {
+        CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
+        DocumentReference itineraryDoc = itineraryCollection.document(itinerary.getUniqueID());
+        itineraryDoc.delete()
+                .addOnSuccessListener(aVoid -> Log.d("Firebase", "Successfully deleted itinerary: "))
+                .addOnFailureListener(e -> Log.w("Firebase", "Error deleting itinerary", e));
+
+    }
 }

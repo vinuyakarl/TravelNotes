@@ -107,6 +107,7 @@ public class EditItineraryFragment extends DialogFragment {
 
     private void setUITexts() {
         titleTextView.setText("Edit Itinerary");
+        cancelButton.setText("DELETE");
         addActivity.setText(selectedItinerary.getActivity());
         addLocation.setText(selectedItinerary.getLocation());
         timeStarted = LocalTime.parse(selectedItinerary.getTimeStart());
@@ -125,6 +126,7 @@ public class EditItineraryFragment extends DialogFragment {
     }
 
     private void cancelButtonClicked() {
+        selectedTrip.deleteItinerary(selectedItinerary);
         dismiss();
     }
 
