@@ -18,6 +18,9 @@ import com.example.travelnotes.main.entity.SortOption;
 
 import java.util.ArrayList;
 
+/**
+ * Adapter used to display sort options in the sort fragment
+ */
 public class SortAdapter extends ArrayAdapter<SortOption> {
     private ArrayList<SortOption> sortOptions;
     private LayoutInflater inflater;

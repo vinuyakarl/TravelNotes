@@ -16,6 +16,9 @@ import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 
+/**
+ * This fragment is used when user icon is clicked in homepage. Displays username of user.
+ */
 public class UserProfileFragment extends DialogFragment {
     TextView userTextView;
     Button closeButton;
@@ -35,6 +38,10 @@ public class UserProfileFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Gets UI Elements for UserProfileFragment
+     * @param view: view of fragment
+     */
     public void getUIElements(View view) {
         userTextView = view.findViewById(R.id.usernameViewText);
         closeButton = view.findViewById(R.id.doneButton);

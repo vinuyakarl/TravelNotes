@@ -1,11 +1,15 @@
 package com.example.travelnotes.main.entity;
 
-import android.util.Log;
 
 import com.example.travelnotes.main.control.UserDB;
 
 import java.util.ArrayList;
 
+/**
+ * This class stores all users of the app and uses a Singleton pattern. Basic setters and getters,
+ * fetching users from DB, as well as getting users, checking if user exists, and adding a user is found
+ * in this class.
+ */
 public class UserManager {
     private ArrayList<User> users = new ArrayList<>();
     private static final UserManager instance = new UserManager();
@@ -19,6 +23,11 @@ public class UserManager {
         return instance;
     }
 
+    /**
+     * Checks if a user exists in the userManager
+     * @param username: username to be checked
+     * @return boolean: if user exists or not
+     */
     public boolean containsUser(String username) {
         for (User user: users) {
             if (user.getUsername().equals(username)) {
@@ -34,6 +43,12 @@ public class UserManager {
             userDB.addUserDB(user);
         }
     }
+
+    /**
+     * Returns a User using its username
+     * @param username: username used to find the User object
+     * @return
+     */
     public User getUserByUsername(String username) {
         for (User user: users) {
             if (user.getUsername().equals(username)) {
@@ -60,9 +75,6 @@ public class UserManager {
         this.currentUser = currentUser;
     }
 
-    /**
-     * Gets all users from DB and populate local userArrayList from DB
-     */
     public void fetchUsers() {
         userDB.fetchUsersDB();
     }

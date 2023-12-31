@@ -16,6 +16,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * DB functions relating to itineraries are located here. The functions for adding itinerary in DB, fetching
+ * the itineraries from DB, deleting itineraries in DB, and editing itineraries in DB are located in
+ * this class.
+ */
 public class ItineraryDB {
     private final CollectionReference tripCollection;
     private final FirebaseFirestore db;
@@ -26,6 +31,11 @@ public class ItineraryDB {
         tripCollection = db.collection("trips");
     }
 
+    /**
+     * Adds a trip itinerary to DB
+     * @param trip: trip whose itinerary is being added to
+     * @param itinerary: to be added itinerary
+     */
     public void addItineraryToTripDB(Trip trip, Itinerary itinerary) {
         CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
         itineraryCollection.document(itinerary.getUniqueID().toString())
@@ -34,6 +44,10 @@ public class ItineraryDB {
                 .addOnFailureListener(e -> Log.e("Firestore", "Error adding itinerary", e));
     }
 
+    /**
+     * Fetches the itineraries from the DB
+     * @param trips: trips whose itineraries we are fetching from DB
+     */
     public void fetchItinerariesDB(TripManager trips) {
         for (Trip trip: trips.getTrips()) {
             ArrayList<Itinerary> itinerariesDB = new ArrayList<>();
@@ -50,6 +64,10 @@ public class ItineraryDB {
         }
     }
 
+    /**
+     * Deletes all itineraries of a trip in DB
+     * @param trip: trip whose itineraries will all be deleted
+     */
     public void deleteAllItinerariesDB(Trip trip) {
         CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
         itineraryCollection.get().addOnCompleteListener(task -> {
@@ -63,6 +81,11 @@ public class ItineraryDB {
         });
     }
 
+    /**
+     * Edits an existing itinerary in the DB
+     * @param trip: trip whose itinerary is related to
+     * @param itinerary: itinerary to be edited
+     */
     public void editItineraryDB(Trip trip, Itinerary itinerary) {
         CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
         DocumentReference itineraryDoc = itineraryCollection.document(itinerary.getUniqueID());
@@ -77,6 +100,11 @@ public class ItineraryDB {
                 .addOnFailureListener(e -> Log.e("Firestore", "Error updating itinerary", e));
     }
 
+    /**
+     * Deletes an itinerary from DB
+     * @param trip: trip whose itinerary is related to
+     * @param itinerary: to be deleted itinerary
+     */
     public void deleteItineraryDB(Trip trip, Itinerary itinerary) {
         CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
         DocumentReference itineraryDoc = itineraryCollection.document(itinerary.getUniqueID());

@@ -28,6 +28,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
+/**
+ * Adapter used to display the trips in the homepage
+ */
 public class TripAdapter extends ArrayAdapter<Trip> {
     private ArrayList<Trip> allTrips;
     private LayoutInflater inflater;
@@ -40,6 +43,11 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         this.inflater = LayoutInflater.from(context);
     }
 
+    /**
+     * Sorts the trips based on the given option/direction
+     * @param sortOption: property to be used to sort the trips
+     * @param sortDirection: descending or ascending
+     */
     public void sortTripsList(@Nullable String sortOption, @Nullable String sortDirection) {
         Comparator<Trip> comparator = null;
         if (sortOption == null || sortDirection == null) {
@@ -109,16 +117,15 @@ public class TripAdapter extends ArrayAdapter<Trip> {
         return allTrips.get(position);
     }
 
+    /**
+     * Sets the trips being used in the adapter to a new one
+     * @param trips
+     */
     public void setTrips(ArrayList<Trip> trips) {
         this.allTrips.clear();
         this.allTrips.addAll(trips);
         notifyDataSetChanged();
 
-    }
-
-    public void deleteTrip(Trip trip) {
-        this.allTrips.remove(trip);
-        notifyDataSetChanged();
     }
 
 }

@@ -1,5 +1,8 @@
 package com.example.travelnotes.main.entity;
 
+/**
+ * This class represents a sort option that is used in the sort fragment.
+ */
 public class SortOption {
     private String sortType;
     private boolean isChecked;
@@ -12,6 +15,7 @@ public class SortOption {
     public SortOption() {
     }
 
+    // getters and setters
     public String getSortType() {
         return sortType;
     }

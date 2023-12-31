@@ -2,6 +2,10 @@ package com.example.travelnotes.main.entity;
 
 import java.io.Serializable;
 import java.util.UUID;
+
+/**
+ * Class that represents a uniqueID used by trips and itineraries. Basics and setters are found here.
+ */
 public class UniqueID implements Serializable {
     private UUID ID;
     private long msb;

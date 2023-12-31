@@ -12,6 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * Represents a trip where destination, origin, id, date, cost, itineraries are stored. Basic getters
+ * and setters, adding/editing/deleting itineraries, checking if an item matches a query, as well as
+ * editing a trip function are located in this class.
+ */
 public class Trip implements Serializable {
     private String destination;
     private String origin;
@@ -33,6 +38,7 @@ public class Trip implements Serializable {
     public Trip() {
     }
 
+    // getters and setters
     public String getDestination() {
         return destination;
     }
@@ -113,6 +119,11 @@ public class Trip implements Serializable {
         itineraryDB.deleteItineraryDB(this, itinerary);
     }
 
+    /**
+     * Checks if an item matches a given query
+     * @param query: user given query
+     * @return boolean: if item fits the query or not
+     */
     public boolean matchesQuery(String query) {
         if (this.destination.toLowerCase().contains(query.toLowerCase())) {
             return true;
