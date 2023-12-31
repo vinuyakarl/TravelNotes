@@ -127,6 +127,7 @@ public class EditItineraryFragment extends DialogFragment {
 
     private void cancelButtonClicked() {
         selectedTrip.deleteItinerary(selectedItinerary);
+        currentUser.getTripManager().fetchItineraries();
         dismiss();
     }
 
