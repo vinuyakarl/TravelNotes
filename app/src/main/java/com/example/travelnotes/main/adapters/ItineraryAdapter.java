@@ -19,6 +19,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Locale;
 
+/**
+ * Adapter used to display the itineraries in the ViewTripActivity
+ */
 public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
     private ArrayList<Itinerary> itineraryList;
     private LayoutInflater inflater;
@@ -29,6 +32,9 @@ public class ItineraryAdapter extends ArrayAdapter<Itinerary> {
         this.inflater = LayoutInflater.from(context);
     }
 
+    /**
+     * Sorts the itinerary list based on date and time of an itinerary
+     */
     public void sortItineraryList() {
         Collections.sort(this.itineraryList, Comparator.comparing(Itinerary::getDateAndTime));
     }

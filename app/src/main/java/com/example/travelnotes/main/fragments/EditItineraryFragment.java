@@ -33,6 +33,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This fragment is used when user wants to edit an existing itinerary that corresponds to a trip
+ */
 public class EditItineraryFragment extends DialogFragment {
     private Itinerary selectedItinerary;
     private Trip selectedTrip;
@@ -50,13 +53,15 @@ public class EditItineraryFragment extends DialogFragment {
     private Date activityDate;
     private User currentUser = UserManager.getInstance().getCurrentUser();
 
+    /**
+     * Interface used to let ViewItemActivity know that an itinerary has been updated
+     */
     public interface EditDialogCloseListener {
         void onEditDialogClosed();
     }
 
     private EditItineraryFragment.EditDialogCloseListener listener;
 
-    // Set the listener
     public void setDialogCloseListener(EditItineraryFragment.EditDialogCloseListener listener) {
         this.listener = listener;
     }
@@ -78,11 +83,7 @@ public class EditItineraryFragment extends DialogFragment {
 
         getUIElements(view);
         setUITexts();
-        cancelButton.setOnClickListener(v -> cancelButtonClicked());
-        dateButton.setOnClickListener(v -> dateButtonClicked());
-        startTimeButton.setOnClickListener(v -> timeButtonClicked(startTimeButton));
-        endTimeButton.setOnClickListener(v -> timeButtonClicked(endTimeButton));
-        confirmButton.setOnClickListener(v -> confirmButtonClicked());
+        addButtonListeners();
 
         builder.setView(view);
         return builder.create();
@@ -93,6 +94,10 @@ public class EditItineraryFragment extends DialogFragment {
         this.selectedItinerary = itinerary;
     }
 
+    /**
+     * Gets UI Elements for EditItineraryFragment
+     * @param view: view of the fragment
+     */
     private void getUIElements(View view) {
         titleTextView = view.findViewById(R.id.titleTextView);
         cancelButton = view.findViewById(R.id.cancelButton);
@@ -105,8 +110,23 @@ public class EditItineraryFragment extends DialogFragment {
         dateButton = view.findViewById(R.id.dateButton);
     }
 
+    /**
+     * Adds button listeners to the corresponding UI elements
+     */
+    private void addButtonListeners() {
+        cancelButton.setOnClickListener(v -> cancelButtonClicked());
+        dateButton.setOnClickListener(v -> dateButtonClicked());
+        startTimeButton.setOnClickListener(v -> timeButtonClicked(startTimeButton));
+        endTimeButton.setOnClickListener(v -> timeButtonClicked(endTimeButton));
+        confirmButton.setOnClickListener(v -> confirmButtonClicked());
+    }
+
+    /**
+     * Sets the UI texts based on the properties of the existing itinerary
+     */
     private void setUITexts() {
         titleTextView.setText("Edit Itinerary");
+        cancelButton.setText("DELETE");
         addActivity.setText(selectedItinerary.getActivity());
         addLocation.setText(selectedItinerary.getLocation());
         timeStarted = LocalTime.parse(selectedItinerary.getTimeStart());
@@ -124,10 +144,19 @@ public class EditItineraryFragment extends DialogFragment {
 
     }
 
+    /**
+     * Button listener when delete button is clicked. Deletes the selected itinerary
+     */
     private void cancelButtonClicked() {
+        selectedTrip.deleteItinerary(selectedItinerary);
+        currentUser.getTripManager().fetchItineraries();
         dismiss();
     }
 
+    /**
+     * Button listener when the date button is clicked. User can select the date of when the itinerary
+     * is taking place, which would be stored with the itinerary itself
+     */
     private void dateButtonClicked() {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -156,6 +185,13 @@ public class EditItineraryFragment extends DialogFragment {
         datePickerDialog.show();
     }
 
+    /**
+     * Checks if the user inputs are valid and can be added
+     * @param activity: inputted itinerary activity
+     * @param location: inputted itinerary location
+     * @param cost: inputted itinerary cost
+     * @return boolean: if inputs are valid or not
+     */
     private boolean isInputValid(String activity, String location, String cost) {
         boolean anyFieldsEmpty = activity.isEmpty() || location.isEmpty() || cost.isEmpty();
         boolean anyTimeEmpty = timeStarted == null || timeEnded == null || activityDate == null;
@@ -182,6 +218,11 @@ public class EditItineraryFragment extends DialogFragment {
         return true;
     }
 
+    /**
+     * Button listener when the time buttons are clicked. Users can select the time of when the itinerary
+     * starts or ends, which would be stored in the itinerary itself
+     * @param timeButton: which timeButton was pressed (startTime or endTime)
+     */
     private void timeButtonClicked(Button timeButton) {
         Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -204,6 +245,10 @@ public class EditItineraryFragment extends DialogFragment {
         timePickerDialog.show();
     }
 
+    /**
+     * Button listener for confirm button. Edits the old itinerary to a new one based on the newly
+     * updated properties. If no properties were changed, nothing changes.
+     */
     private void confirmButtonClicked() {
         String activity = addActivity.getText().toString();
         String location = addLocation.getText().toString();

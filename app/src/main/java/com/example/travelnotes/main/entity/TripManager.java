@@ -1,14 +1,14 @@
 package com.example.travelnotes.main.entity;
 
-import android.util.Log;
-import android.widget.ArrayAdapter;
-
-import com.example.travelnotes.main.adapters.TripAdapter;
 import com.example.travelnotes.main.control.ItineraryDB;
 import com.example.travelnotes.main.control.TripManagerDB;
 
 import java.util.ArrayList;
 
+/**
+ * Stores a user's trips. Basic getters and setters, adding/editing/deleting trips, as well as
+ * fetching itineraries and trips functions are found here
+ */
 public class TripManager {
     private ArrayList<Trip> trips;
     private TripManagerDB tripManagerDB = new TripManagerDB();
@@ -29,7 +29,6 @@ public class TripManager {
 
     public void editTrip(Trip oldTrip, Trip newTrip) {
         oldTrip.editTrip(newTrip);
-        Log.d("Searching", "Befores" + this.getTrip(0).getDestination());
         tripManagerDB.editTripInDB(oldTrip, newTrip);
     }
 

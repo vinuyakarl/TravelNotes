@@ -6,8 +6,11 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.UUID;
 
+/**
+ * Represents an itinerary of a trip where the id, activity, time, date, location, and cost are stored.
+ * Getters and setters, editing, calculating combined date and time functions are located in this class.
+ */
 public class Itinerary implements Serializable {
     private String timeStart;
     private String timeEnd;
@@ -32,6 +35,7 @@ public class Itinerary implements Serializable {
     public Itinerary() {
     }
 
+    // Getters and Setters
     public Float getCost() {
         return cost;
     }
@@ -100,6 +104,10 @@ public class Itinerary implements Serializable {
         return dateAndTime;
     }
 
+    /**
+     * Edits old itinerary based on a given new itinerary whose properties are going to be used
+     * @param newItinerary: itinerary with the newly updated properties
+     */
     public void editItinerary(Itinerary newItinerary) {
         this.setDate(newItinerary.getDate());
         this.setTimeStart(newItinerary.getTimeStart());

@@ -18,7 +18,9 @@ import com.example.travelnotes.R;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 
-
+/**
+ * This fragment is used when user wants to sign up as a new account.
+ */
 public class SignUpFragment extends DialogFragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -44,17 +46,25 @@ public class SignUpFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * Checks if given username does not exits, and the passwords matches each other.
+     */
     private void attemptSignup() {
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
         String confirmPassword = editTextConfirmPassword.getText().toString();
 
+        // If password and confirmPassword does not match
         if (!password.equals(confirmPassword)) {
             Toast.makeText(this.getContext(), "Password Does Not Match", Toast.LENGTH_SHORT).show();
         }
+
+        // If username is already taken
         else if (userManager.containsUser(username)) {
             Toast.makeText(this.getContext(), "User already exists", Toast.LENGTH_SHORT).show();
         }
+
+        // If everything is valid
         else {
             User user = new User(username, password);
             userManager.addUser(user);

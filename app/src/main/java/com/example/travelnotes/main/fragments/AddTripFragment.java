@@ -25,6 +25,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This fragment is used when a user wants to add a trip. Trip can be added in this fragment
+ */
 public class AddTripFragment extends DialogFragment {
     private Button cancelButton;
     private Button confirmButton;
@@ -37,6 +40,9 @@ public class AddTripFragment extends DialogFragment {
     private TripManager currentTripManager;
     private OnTripAddedListener tripAddedListener;
 
+    /**
+     * Interface used to let homepage know a trip has been added
+     */
     public interface OnTripAddedListener {
         void onTripAdded();
     }
@@ -48,7 +54,7 @@ public class AddTripFragment extends DialogFragment {
         try {
             tripAddedListener = (OnTripAddedListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnTripAddedListener");
+            throw new ClassCastException(context + " must implement OnTripAddedListener");
         }
     }
 
@@ -62,15 +68,16 @@ public class AddTripFragment extends DialogFragment {
         currentTripManager = UserManager.getInstance().getCurrentUser().getTripManager();
 
         getUIElements(view);
-        startDateButton.setOnClickListener(v -> dateButtonClicked(startDateButton));
-        endDateButton.setOnClickListener(v -> dateButtonClicked(endDateButton));
-        cancelButton.setOnClickListener(v -> cancelButtonClicked());
-        confirmButton.setOnClickListener(v -> confirmButtonClicked());
+        addButtonListeners();
 
         builder.setView(view);
         return builder.create();
     }
 
+    /**
+     * Gets the UI elements for AddTripFragment
+     * @param view: view of fragment
+     */
     private void getUIElements(View view) {
         cancelButton = view.findViewById(R.id.cancelButton);
         confirmButton = view.findViewById(R.id.confirmButton);
@@ -80,6 +87,21 @@ public class AddTripFragment extends DialogFragment {
         endDateButton = view.findViewById(R.id.dateEndedButton);
     }
 
+    /**
+     * Adds button listeners to the corresponding UI elements
+     */
+    private void addButtonListeners() {
+        startDateButton.setOnClickListener(v -> dateButtonClicked(startDateButton));
+        endDateButton.setOnClickListener(v -> dateButtonClicked(endDateButton));
+        cancelButton.setOnClickListener(v -> cancelButtonClicked());
+        confirmButton.setOnClickListener(v -> confirmButtonClicked());
+    }
+
+    /**
+     * Button listener when the date button is clicked. User can select the date of when the trip
+     * is taking place, which would be stored with the trip itself
+     * @param dateButton: which dateButton was pressed (tripStart, tripEnd)
+     */
     private void dateButtonClicked(Button dateButton) {
         Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -109,14 +131,16 @@ public class AddTripFragment extends DialogFragment {
 
     /**
      * Closes the fragment when cancel button is pressed
-     * (I made my own negativeButton due to wanting to add a border
-     * to the fragment)
      */
     private void cancelButtonClicked() {
         dismiss();
     }
 
 
+    /**
+     * Button listener when user has clicked the confirm button. If all inputs are valid, would add trip
+     * to the TripManager
+     */
     private void confirmButtonClicked() {
         String origin = addOrigin.getText().toString();
         String destination = addDestination.getText().toString();
@@ -134,6 +158,12 @@ public class AddTripFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Checks if inputs are valid
+     * @param origin: inputted trip origin
+     * @param destination: inputted trip destination
+     * @return boolean: if inputs are valid or not
+     */
     private boolean isInputValid(String origin, String destination) {
         boolean anyFieldsEmpty = origin.isEmpty() || destination.isEmpty();
         boolean anyDatesEmpty = tripStarted == null || tripEnded == null;

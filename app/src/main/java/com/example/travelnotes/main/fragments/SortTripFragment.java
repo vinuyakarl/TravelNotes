@@ -20,6 +20,10 @@ import com.example.travelnotes.main.entity.SortOption;
 
 import java.util.ArrayList;
 
+/**
+ * This fragment is used when user clicks on the sort button in homepage. Users can select a sort option
+ * which would be used to sort the trips in the homepage
+ */
 public class SortTripFragment extends DialogFragment {
     private Button ascendingButton;
     private Button descendingButton;
@@ -32,6 +36,9 @@ public class SortTripFragment extends DialogFragment {
     private String sortDirection;
     private OnSortOptionSelectedListener sortOptionSelectedListener;
 
+    /**
+     * Interface used to let homepage know a sort option has been chosen
+     */
     public interface OnSortOptionSelectedListener {
         void onSortOptionSelected(SortOption chosenSort, String sortDirection);
     }
@@ -59,13 +66,15 @@ public class SortTripFragment extends DialogFragment {
         sortAdapter = new SortAdapter(getContext(), sortOptions);
         sortOptionsListView.setAdapter(sortAdapter);
 
-        closeButton.setOnClickListener(v -> closeButtonPressed());
-        ascendingButton.setOnClickListener(v -> sortButtonPressed("Ascending"));
-        descendingButton.setOnClickListener(v -> sortButtonPressed("Descending"));
+        addButtonListeners();
         builder.setView(view);
         return builder.create();
     }
 
+    /**
+     * Get UI elements for SortTripFragment
+     * @param view: view for fragment
+     */
     public void getUIElements(View view) {
         ascendingButton = view.findViewById(R.id.ascendingButton);
         descendingButton = view.findViewById(R.id.descendingButton);
@@ -73,6 +82,18 @@ public class SortTripFragment extends DialogFragment {
         sortOptionsListView = view.findViewById(R.id.sortOptionsListView);
     }
 
+    /**
+     * Adds button listeners to corresponding UI elements
+     */
+    public void addButtonListeners() {
+        closeButton.setOnClickListener(v -> closeButtonPressed());
+        ascendingButton.setOnClickListener(v -> sortButtonPressed("Ascending"));
+        descendingButton.setOnClickListener(v -> sortButtonPressed("Descending"));
+    }
+
+    /**
+     * Populates the sortOptions List
+     */
     public void populateSortOptionsList() {
         sortOptions = new ArrayList<>();
         sortOptions.add(new SortOption("Cost", false));
@@ -80,10 +101,17 @@ public class SortTripFragment extends DialogFragment {
         sortOptions.add(new SortOption("Name", false));
     }
 
+    /**
+     * Button listener when close button is pressed. Closes the fragment
+     */
     public void closeButtonPressed() {
         dismiss();
     }
 
+    /**
+     * Button listener when ascending or descending is pressed, sets which sort option is to be used.
+     * @param directionOfSort: ascending or descending
+     */
     public void sortButtonPressed(String directionOfSort) {
         getSortOption();
         if (chosenSort != null) {
@@ -95,6 +123,9 @@ public class SortTripFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Gets the chosen sort option by checking which option is checked
+     */
     public void getSortOption() {
         boolean isValid = isValid();
         if (isValid) {
@@ -109,6 +140,10 @@ public class SortTripFragment extends DialogFragment {
         }
     }
 
+    /**
+     * Checks if chosen sort option is valid or not (only choose one)
+     * @return boolean: if chosen sort option is valid or not
+     */
     public boolean isValid() {
         boolean oneChecked = false;
         for (SortOption sortOption: sortOptions) {

@@ -1,5 +1,9 @@
 package com.example.travelnotes.main.entity;
 
+/**
+ * Represents a user of an app, who has a unique username, password, and its own tripManager.
+ * Basic getters and setters are found here.
+ */
 public class User {
     private String username;
     private String password;
