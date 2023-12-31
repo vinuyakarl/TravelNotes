@@ -20,6 +20,7 @@ import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 import com.example.travelnotes.main.fragments.AddTripFragment;
 import com.example.travelnotes.main.fragments.SortTripFragment;
+import com.example.travelnotes.main.fragments.UserProfileFragment;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     private Button addButton;
     private Button logoutButton;
     private Button sortButton;
+    private Button profileButton;
     private SearchView searchBar;
     private Trip selectedTrip;
 
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         addButton.setOnClickListener(v -> addButtonPressed());
         logoutButton.setOnClickListener(v -> logoutButtonPressed());
         sortButton.setOnClickListener(v -> sortButtonPressed());
+        profileButton.setOnClickListener(v -> profileButtonPressed());
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
         addButton = findViewById(R.id.addIcon);
         logoutButton = findViewById(R.id.logoutButton);
         sortButton = findViewById(R.id.sortButton);
+        profileButton = findViewById(R.id.profileIcon);
         searchBar = findViewById(R.id.homePageSearch);
     }
 
@@ -101,6 +105,11 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
     private void sortButtonPressed() {
         SortTripFragment sortTripFragment = new SortTripFragment();
         sortTripFragment.show(getSupportFragmentManager(), "SORT_TRIP");
+    }
+
+    private void profileButtonPressed() {
+        UserProfileFragment userProfileFragment = new UserProfileFragment();
+        userProfileFragment.show(getSupportFragmentManager(), "USER_PROFILE");
     }
 
     @Override
