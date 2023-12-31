@@ -58,6 +58,9 @@ public class EditItineraryFragment extends DialogFragment {
         getUIElements(view);
         setUITexts();
         cancelButton.setOnClickListener(v -> cancelButtonClicked());
+        dateButton.setOnClickListener(v -> dateButtonClicked());
+        startTimeButton.setOnClickListener(v -> timeButtonClicked(startTimeButton));
+        endTimeButton.setOnClickListener(v -> timeButtonClicked(endTimeButton));
 
         builder.setView(view);
         return builder.create();
@@ -87,11 +90,97 @@ public class EditItineraryFragment extends DialogFragment {
         startTimeButton.setText(selectedItinerary.getTimeStart());
         endTimeButton.setText(selectedItinerary.getTimeEnd());
 
-        addCost.setText(selectedItinerary.getCost().toString());
+        addCost.setText(String.format("%.2f", selectedItinerary.getCost()));
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String formattedDate = dateFormat.format(selectedItinerary.getDate());
+        dateButton.setText(formattedDate);
+
 
     }
 
     private void cancelButtonClicked() {
         dismiss();
     }
+
+    private void dateButtonClicked() {
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                getContext(),
+                (view, year, monthOfYear, dayOfMonth) -> {
+                    Calendar newDate = Calendar.getInstance();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    newDate.set(year, monthOfYear, dayOfMonth, 0, 0);
+                    activityDate = newDate.getTime();
+
+
+
+                    if (activityDate.after(selectedTrip.getTripEnded()) || activityDate.before(selectedTrip.getTripStarted())) {
+                        Toast.makeText(getContext(), "Select a Valid Date Within Trip Range", Toast.LENGTH_SHORT).show();
+                        dateButtonClicked();
+                    }
+
+                    else {
+                        String formattedDate = dateFormat.format(activityDate);
+                        dateButton.setText(formattedDate);
+                    }
+
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
+
+    private boolean isInputValid(String activity, String location, String cost) {
+        boolean anyFieldsEmpty = activity.isEmpty() || location.isEmpty() || cost.isEmpty();
+        boolean anyTimeEmpty = timeStarted == null || timeEnded == null || activityDate == null;
+
+        // Check if any fields is empty
+        if (anyFieldsEmpty || anyTimeEmpty) {
+            Toast.makeText(getContext(), "Please Fill Out All Fields", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // Check if trip date is valid
+        if (timeStarted.isAfter(timeEnded)) {
+            Toast.makeText(getContext(), "Invalid Time", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        // If activityDate is before starting date OR activityDate is after trip end
+        Log.d("valid", String.valueOf(activityDate.before(selectedTrip.getTripStarted())));
+        if (activityDate.before(selectedTrip.getTripStarted()) || activityDate.after(selectedTrip.getTripEnded())) {
+            Toast.makeText(getContext(), "Invalid Date", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }
+
+    private void timeButtonClicked(Button timeButton) {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                (view, hourOfDay, minuteOfHour) -> {
+
+                    if (timeButton == startTimeButton) {
+                        timeStarted = LocalTime.of(hourOfDay, minuteOfHour);
+                        timeButton.setText(timeStarted.toString());
+                    }
+                    else {
+                        timeEnded = LocalTime.of(hourOfDay, minuteOfHour);
+                        timeButton.setText(timeEnded.toString());
+                    }
+
+                }, hour, minute, DateFormat.is24HourFormat(getContext()));
+
+        timePickerDialog.show();
+    }
+
+    private void confirmButtonClicked() {
+
+    }
+
 }
