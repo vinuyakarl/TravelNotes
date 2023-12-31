@@ -63,7 +63,17 @@ public class ItineraryDB {
         });
     }
 
-    public void editItineraryDB(Itinerary itinerary) {
-
+    public void editItineraryDB(Trip trip, Itinerary itinerary) {
+        CollectionReference itineraryCollection = tripCollection.document(trip.getUniqueId().toString()).collection("itineraries");
+        DocumentReference itineraryDoc = itineraryCollection.document(itinerary.getUniqueID());
+        itineraryDoc.update("activity", itinerary.getActivity(),
+                "cost", itinerary.getCost(),
+                "location", itinerary.getLocation(),
+                "date", itinerary.getDate(),
+                "timeStart", itinerary.getTimeStart(),
+                "timeEnd", itinerary.getTimeEnd(),
+                "dateAndTime", itinerary.getDateAndTime())
+                .addOnSuccessListener(aVoid -> Log.d("Firestore", "Itinerary successfully updated!"))
+                .addOnFailureListener(e -> Log.e("Firestore", "Error updating itinerary", e));
     }
 }

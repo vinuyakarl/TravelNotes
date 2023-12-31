@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements SortTripFragment.
 
     private void logoutButtonPressed() {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Toast.makeText(this, currentUser.getUsername() + " Logged Out", Toast.LENGTH_SHORT).show();
         startActivity(intent);
     }

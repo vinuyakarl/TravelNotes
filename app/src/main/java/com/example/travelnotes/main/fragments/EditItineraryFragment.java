@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.travelnotes.R;
+import com.example.travelnotes.main.activities.ViewTripActivity;
 import com.example.travelnotes.main.entity.Itinerary;
 import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.User;
@@ -48,6 +50,25 @@ public class EditItineraryFragment extends DialogFragment {
     private Date activityDate;
     private User currentUser = UserManager.getInstance().getCurrentUser();
 
+    public interface EditDialogCloseListener {
+        void onEditDialogClosed();
+    }
+
+    private EditItineraryFragment.EditDialogCloseListener listener;
+
+    // Set the listener
+    public void setDialogCloseListener(EditItineraryFragment.EditDialogCloseListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (listener != null) {
+            listener.onEditDialogClosed();
+        }
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -61,6 +82,7 @@ public class EditItineraryFragment extends DialogFragment {
         dateButton.setOnClickListener(v -> dateButtonClicked());
         startTimeButton.setOnClickListener(v -> timeButtonClicked(startTimeButton));
         endTimeButton.setOnClickListener(v -> timeButtonClicked(endTimeButton));
+        confirmButton.setOnClickListener(v -> confirmButtonClicked());
 
         builder.setView(view);
         return builder.create();
@@ -87,13 +109,16 @@ public class EditItineraryFragment extends DialogFragment {
         titleTextView.setText("Edit Itinerary");
         addActivity.setText(selectedItinerary.getActivity());
         addLocation.setText(selectedItinerary.getLocation());
+        timeStarted = LocalTime.parse(selectedItinerary.getTimeStart());
         startTimeButton.setText(selectedItinerary.getTimeStart());
+        timeEnded = LocalTime.parse(selectedItinerary.getTimeEnd());
         endTimeButton.setText(selectedItinerary.getTimeEnd());
 
         addCost.setText(String.format("%.2f", selectedItinerary.getCost()));
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        String formattedDate = dateFormat.format(selectedItinerary.getDate());
+        activityDate = selectedItinerary.getDate();
+        String formattedDate = dateFormat.format(activityDate);
         dateButton.setText(formattedDate);
 
 
@@ -180,7 +205,17 @@ public class EditItineraryFragment extends DialogFragment {
     }
 
     private void confirmButtonClicked() {
+        String activity = addActivity.getText().toString();
+        String location = addLocation.getText().toString();
+        String cost = addCost.getText().toString();
 
+        boolean isValid = isInputValid(activity, location, cost);
+        if (isValid) {
+            Itinerary newItinerary = new Itinerary(activityDate, timeStarted.toString(), timeEnded.toString(), location, activity, Float.parseFloat(cost));
+            selectedTrip.editItinerary(selectedItinerary, newItinerary);
+            Toast.makeText(getContext(), "Itinerary Edited", Toast.LENGTH_SHORT).show();
+            currentUser.getTripManager().fetchItineraries();
+            dismiss();
+        }
     }
-
 }
