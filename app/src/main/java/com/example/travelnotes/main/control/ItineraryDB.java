@@ -62,4 +62,8 @@ public class ItineraryDB {
             }
         });
     }
+
+    public void editItineraryDB(Itinerary itinerary) {
+
+    }
 }

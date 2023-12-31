@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -12,11 +14,13 @@ import android.widget.Toast;
 
 import com.example.travelnotes.R;
 import com.example.travelnotes.main.adapters.ItineraryAdapter;
+import com.example.travelnotes.main.entity.Itinerary;
 import com.example.travelnotes.main.entity.Trip;
 import com.example.travelnotes.main.entity.TripManager;
 import com.example.travelnotes.main.entity.User;
 import com.example.travelnotes.main.entity.UserManager;
 import com.example.travelnotes.main.fragments.AddItineraryFragment;
+import com.example.travelnotes.main.fragments.EditItineraryFragment;
 import com.example.travelnotes.main.fragments.EditTripFragment;
 
 import java.text.SimpleDateFormat;
@@ -46,6 +50,7 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
         itineraryAdapter.sortItineraryList();
         itineraryListView = findViewById(R.id.itineraryListView);
         itineraryListView.setAdapter(itineraryAdapter);
+        itineraryListView.setOnItemClickListener((parent, view, position, id) -> itineraryClicked(position));
 
         getUIElements();
         setTexts();
@@ -102,5 +107,12 @@ public class ViewTripActivity extends AppCompatActivity implements AddItineraryF
     public void editButtonClicked() {
         EditTripFragment editTripFragment = new EditTripFragment(selectedTrip);
         editTripFragment.show(getSupportFragmentManager(), "EDIT_TRIP");
+    }
+
+    public void itineraryClicked(int position) {
+        Itinerary selectedItinerary = itineraryAdapter.getItem(position);
+        EditItineraryFragment editItineraryFragment = new EditItineraryFragment(selectedTrip, selectedItinerary);
+        editItineraryFragment.show(getSupportFragmentManager(), "EDIT_ITINERARY");
+
     }
 }
